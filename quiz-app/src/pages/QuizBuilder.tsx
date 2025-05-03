@@ -1,0 +1,40 @@
+import {useForm} from "react-hook-form";
+import {useNavigate} from "react-router-dom";
+import {DashboardLayout} from "../layouts/DashboardLayout";
+import "../styles/forms.scss";
+import {useQuiz} from "../context/QuizContext";
+
+export const QuizBuilder = () => {
+    const {register, handleSubmit} = useForm();
+    const navigate = useNavigate();
+    const {quiz, setQuiz} = useQuiz();
+
+    const onSubmit = (data: any) => {
+        setQuiz({...quiz, ...data});
+        navigate("/quiz-builder/questions");
+    };
+
+    return (
+        <DashboardLayout>
+            <form className="form" onSubmit={handleSubmit(onSubmit)}>
+                <h2>Stwórz nowy quiz</h2>
+                <input {...register("title")} placeholder="Tytuł" required/>
+                <textarea {...register("description")} placeholder="Opis" required/>
+                <select {...register("category")} required>
+                    <option value="">Wybierz kategorię</option>
+                    <option value="Informatyka">Informatyka</option>
+                    <option value="Matematyka">Matematyka</option>
+                </select>
+                <select {...register("difficulty")} required>
+                    <option value="">Poziom trudności</option>
+                    <option value="Łatwy">Łatwy</option>
+                    <option value="Średni">Średni</option>
+                    <option value="Trudny">Trudny</option>
+                </select>
+                <input type="text" {...register("coverImageUrl")} placeholder="URL obrazka"/>
+                <input type="number" {...register("timeLimit")} placeholder="Limit czasowy (min)" required/>
+                <button type="submit">Dalej</button>
+            </form>
+        </DashboardLayout>
+    );
+};
