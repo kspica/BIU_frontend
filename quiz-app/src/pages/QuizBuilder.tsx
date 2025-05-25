@@ -4,10 +4,26 @@ import {DashboardLayout} from "../layouts/DashboardLayout";
 import "../styles/forms.scss";
 import {useQuiz} from "../context/QuizContext";
 
+const MOCK_QUIZ = {
+    title: "Testowy quiz z wiedzy ogólnej",
+    description: "Quiz zawiera pytania z różnych dziedzin wiedzy.",
+    category: "Informatyka",
+    difficulty: "Średni",
+    coverImageUrl: "https://example.com/quiz.jpg",
+    timeLimit: 10
+};
+
 export const QuizBuilder = () => {
-    const {register, handleSubmit} = useForm();
+    const {register, handleSubmit, setValue} = useForm();
     const navigate = useNavigate();
     const {quiz, setQuiz} = useQuiz();
+
+    const loadMockQuiz = () => {
+        setQuiz({...quiz, ...MOCK_QUIZ});
+        Object.entries(MOCK_QUIZ).forEach(([key, value]) => setValue(key as any, value));
+    };
+
+
 
     const onSubmit = (data: any) => {
         setQuiz({...quiz, ...data});
@@ -35,6 +51,7 @@ export const QuizBuilder = () => {
                 <input type="number" {...register("timeLimit")} placeholder="Limit czasowy (min)" required/>
                 <button type="submit">Dalej</button>
             </form>
+            <button onClick={loadMockQuiz} className="form-button">Załaduj dane testowe</button>
         </DashboardLayout>
     );
 };
