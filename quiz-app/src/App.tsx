@@ -14,6 +14,10 @@ import {QuizProvider} from "./context/QuizContext";
 import {QuestionBuilder} from "./pages/QuestionBuilder";
 import {MyQuizzes} from "./pages/MyQuizzes";
 import {QuizDetails} from "./pages/QuizDetails";
+import {QuizPlay} from "./pages/QuizPlay";
+import {Leaderboard} from "./pages/Leaderboard";
+import {QuizLeaderboard} from "./pages/QuizLeaderboard";
+import {QuizSearch} from "./pages/QuizSearch";
 
 
 function App() {
@@ -59,6 +63,11 @@ function App() {
                             </PrivateRoute>
                         }
                         />
+                        <Route path="/play/:quizId" element={<QuizPlay />} />
+                        <Route path="/leaderboard" element={<Leaderboard />} />
+                        <Route path="/leaderboard/:quizId" element={<QuizLeaderboard />} />
+                        <Route path="/quiz-search" element={<QuizSearch />} />
+
                     </Routes>
                 </Router>
             </QuizProvider>

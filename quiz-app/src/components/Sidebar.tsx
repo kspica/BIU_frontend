@@ -9,6 +9,8 @@ export const Sidebar = () => (
                 <li><NavLink to="/dashboard">Dashboard</NavLink></li>
                 <li><NavLink to="/quiz-builder">Quiz Creator</NavLink></li>
                 <li><NavLink to="/my-quizzes">Moje quizy</NavLink></li>
+                <li><NavLink to="/quiz-search">Wyszukiwarka quizów</NavLink></li>
+                <li><NavLink to="/leaderboard">Najlepsze wyniki</NavLink></li>
             </ul>
         </nav>
     </aside>
