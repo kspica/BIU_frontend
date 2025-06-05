@@ -22,6 +22,7 @@ import {MultiplayerLobby} from "./components/MultiplayerLobby";
 import {MultiplayerGame} from "./pages/MultiplayerGame";
 import {Tournaments} from "./pages/Tournament";
 import {TournamentLeaderboard} from "./components/TournamentLeaderboard";
+import {Statistics} from "./pages/Statistics";
 
 
 function App() {
@@ -88,6 +89,7 @@ function App() {
                         <Route path="/leaderboard" element={<Leaderboard/>}/>
                         <Route path="/leaderboard/:quizId" element={<QuizLeaderboard/>}/>
                         <Route path="/quiz-search" element={<QuizSearch/>}/>
+                        <Route path="/statistics" element={<Statistics/>}/>
                     </Routes>
                 </Router>
             </QuizProvider>

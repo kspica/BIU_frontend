@@ -12,6 +12,8 @@ export const Sidebar = () => (
                 <li><NavLink to="/quiz-search">Wyszukiwarka quizów</NavLink></li>
                 <li><NavLink to="/leaderboard">Najlepsze wyniki</NavLink></li>
                 <li><NavLink to="/tournaments">Turnieje</NavLink></li>
+                <li><NavLink to="/statistics" className="nav-link">Statystyki</NavLink></li>
+
             </ul>
         </nav>
     </aside>
