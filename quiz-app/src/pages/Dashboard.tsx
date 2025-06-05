@@ -16,12 +16,17 @@ export const Dashboard = () => {
     const {token} = useAuth();
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
     const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
+    const [selectedQuizId, setSelectedQuizId] = useState<number | null>(null);
+    const [startTime, setStartTime] = useState("");
+    const [endTime, setEndTime] = useState("");
+
 
     useEffect(() => {
         const fetchQuizzes = async () => {
             try {
                 const res = await axios.get("http://localhost:8080/api/quizzes/user", {
-                    headers: { Authorization: `Bearer ${token}` }
+                    headers: {Authorization: `Bearer ${token}`}
                 });
                 setQuizzes(res.data);
             } catch (err) {
@@ -36,22 +41,87 @@ export const Dashboard = () => {
         navigate(`/play/${quizId}`);
     };
 
+    const handleChallenge = (quizId: number) => {
+        navigate(`/multiplayer/${quizId}`);
+    };
+
+    const openTournamentModal = (quizId: number) => {
+        setSelectedQuizId(quizId);
+        setShowModal(true);
+    };
+
+    const createTournament = async () => {
+        if (!selectedQuizId || !startTime || !endTime) return;
+        try {
+            await axios.post("http://localhost:8080/api/tournaments", {
+                quizId: selectedQuizId,
+                startTime,
+                endTime
+            }, {
+                headers: {Authorization: `Bearer ${token}`}
+            });
+            setShowModal(false);
+            alert("Turniej utworzony!");
+        } catch (err) {
+            console.error("Błąd tworzenia turnieju:", err);
+        }
+    };
+
+
     return (
         <DashboardLayout>
             <h1>Moje quizy</h1>
             {quizzes.length === 0 ? (
                 <p>Brak quizów do rozwiązania.</p>
             ) : (
-                <ul style={{ listStyleType: "none", padding: 0 }}>
+                <ul style={{listStyleType: "none", padding: 0}}>
                     {quizzes.map((quiz) => (
-                        <li key={quiz.id} style={{ marginBottom: "1rem", padding: "1rem", border: "1px solid #ccc", borderRadius: "6px" }}>
+                        <li key={quiz.id} style={{
+                            marginBottom: "1rem",
+                            padding: "1rem",
+                            border: "1px solid #ccc",
+                            borderRadius: "6px"
+                        }}>
                             <h3>{quiz.title}</h3>
                             <p>{quiz.description}</p>
-                            <p><strong>Kategoria:</strong> {quiz.category} | <strong>Trudność:</strong> {quiz.difficulty}</p>
-                            <button onClick={() => handleStart(quiz.id)} className="form-button">Rozpocznij</button>
+                            <p>
+                                <strong>Kategoria:</strong> {quiz.category} | <strong>Trudność:</strong> {quiz.difficulty}
+                            </p>
+                            <div style={{display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "1rem"}}>
+                                <button onClick={() => handleStart(quiz.id)} className="form-button">Rozpocznij</button>
+                                <button onClick={() => handleChallenge(quiz.id)} className="form-button">Rywalizuj
+                                </button>
+                                <button onClick={() => openTournamentModal(quiz.id)} className="form-button">Zorganizuj
+                                    Turniej
+                                </button>
+                            </div>
                         </li>
                     ))}
                 </ul>
+            )}
+            {showModal && (
+                <div style={{
+                    position: "fixed", top: 0, left: 0, width: "100%", height: "100%",
+                    background: "rgba(0,0,0,0.5)", display: "flex", alignItems: "center", justifyContent: "center"
+                }}>
+                    <div style={{background: "#fff", padding: "2rem", borderRadius: "8px", width: "300px"}}>
+                        <h3>Zorganizuj Turniej</h3>
+                        <label>Start:</label>
+                        <input type="datetime-local" value={startTime} onChange={e => setStartTime(e.target.value)}/>
+                        <label>Koniec:</label>
+                        <input type="datetime-local" value={endTime} onChange={e => setEndTime(e.target.value)}/>
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            gap: "0.75rem",
+                            marginTop: "1.5rem"
+                        }}>
+                            <button className="form-button" onClick={createTournament}>Utwórz</button>
+                            <button className="form-button" onClick={() => setShowModal(false)}>Anuluj</button>
+                        </div>
+                    </div>
+                </div>
             )}
         </DashboardLayout>
     );

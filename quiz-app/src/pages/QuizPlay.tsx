@@ -1,16 +1,17 @@
 import {useEffect} from "react";
-import {useParams} from "react-router-dom";
+import {useParams, useSearchParams} from "react-router-dom";
 import axios from "axios";
 import {DashboardLayout} from "../layouts/DashboardLayout";
-import {useQuizPlay, QuizPlayProvider} from "../context/QuizPlayContext";
+import {QuizPlayProvider, useQuizPlay} from "../context/QuizPlayContext";
 import {QuestionDisplay} from "../components/QuestionDisplay";
 import {QuizProgress} from "../components/QuizProgress";
 import {useAuth} from "../auth/AuthContext";
 import "../styles/question-builder.scss";
 
 
-
 const QuizPlayInner = () => {
+    const [searchParams] = useSearchParams();
+    const tournamentId = searchParams.get("tournamentId");
     const {quizId} = useParams();
     const {token} = useAuth();
     const {
@@ -54,7 +55,8 @@ const QuizPlayInner = () => {
                 await axios.post("http://localhost:8080/api/results", {
                     quizId: quiz.id,
                     score,
-                    timeTakenSeconds: quiz.timeLimit * 60 - timeLeft
+                    timeTakenSeconds: quiz.timeLimit * 60 - timeLeft,
+                    tournamentId: tournamentId ? parseInt(tournamentId) : null
                 }, {
                     headers: {
                         Authorization: `Bearer ${token}`

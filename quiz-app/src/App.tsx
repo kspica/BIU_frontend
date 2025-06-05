@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
+import {BrowserRouter as Router, Navigate, Route, Routes} from "react-router-dom";
 import {AuthProvider} from "./auth/AuthContext";
 import {LoginForm} from "./components/LoginForm";
 import {PrivateRoute} from "./routes/PrivateRoute";
@@ -18,6 +18,10 @@ import {QuizPlay} from "./pages/QuizPlay";
 import {Leaderboard} from "./pages/Leaderboard";
 import {QuizLeaderboard} from "./pages/QuizLeaderboard";
 import {QuizSearch} from "./pages/QuizSearch";
+import {MultiplayerLobby} from "./components/MultiplayerLobby";
+import {MultiplayerGame} from "./pages/MultiplayerGame";
+import {Tournaments} from "./pages/Tournament";
+import {TournamentLeaderboard} from "./components/TournamentLeaderboard";
 
 
 function App() {
@@ -63,11 +67,27 @@ function App() {
                             </PrivateRoute>
                         }
                         />
-                        <Route path="/play/:quizId" element={<QuizPlay />} />
-                        <Route path="/leaderboard" element={<Leaderboard />} />
-                        <Route path="/leaderboard/:quizId" element={<QuizLeaderboard />} />
-                        <Route path="/quiz-search" element={<QuizSearch />} />
+                        <Route path="/multiplayer/:quizId" element={
+                            <PrivateRoute>
+                                <MultiplayerLobby/>
+                            </PrivateRoute>
+                        }/>
+                        <Route path="/multiplayer/play/:quizId" element={
+                            <PrivateRoute>
+                                <MultiplayerGame/>
+                            </PrivateRoute>
+                        }/>
+                        <Route path="/tournaments" element={
+                            <PrivateRoute>
+                                <Tournaments/>
+                            </PrivateRoute>
+                        }/>
 
+                        <Route path="/tournament/:tournamentId/leaderboard" element={<TournamentLeaderboard/>}/>
+                        <Route path="/play/:quizId" element={<QuizPlay/>}/>
+                        <Route path="/leaderboard" element={<Leaderboard/>}/>
+                        <Route path="/leaderboard/:quizId" element={<QuizLeaderboard/>}/>
+                        <Route path="/quiz-search" element={<QuizSearch/>}/>
                     </Routes>
                 </Router>
             </QuizProvider>
