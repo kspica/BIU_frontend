@@ -11,6 +11,7 @@ import {
     ResponsiveContainer
 } from "recharts";
 import { motion } from "framer-motion";
+import {API_URL} from "../api/config";
 
 interface RecommendedQuiz {
     id: number;
@@ -44,7 +45,7 @@ export const Statistics = () => {
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const res = await axios.get("http://localhost:8080/api/stats/summary", {
+                const res = await axios.get(`${API_URL}/stats/summary`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setStats(res.data);

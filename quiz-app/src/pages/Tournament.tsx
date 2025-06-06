@@ -3,6 +3,7 @@ import {DashboardLayout} from "../layouts/DashboardLayout";
 import axios from "axios";
 import {useAuth} from "../auth/AuthContext";
 import {useNavigate} from "react-router-dom";
+import {API_URL} from "../api/config";
 
 
 interface Tournament {
@@ -21,7 +22,7 @@ export const Tournaments = () => {
     useEffect(() => {
         const fetchTournaments = async () => {
             try {
-                const res = await axios.get("http://localhost:8080/api/tournaments/active", {
+                const res = await axios.get(`${API_URL}/tournaments/active`, {
                     headers: {Authorization: `Bearer ${token}`}
                 });
                 setTournaments(res.data);

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 import { login as loginService } from "../api/authService";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../api/config";
 
 export const LoginForm = () => {
     const { login } = useAuth();
@@ -37,7 +38,7 @@ export const LoginForm = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
-            <a href="http://localhost:8080/oauth2/authorization/google">
+            <a href={`${BASE_URL}/oauth2/authorization/google`}>
                 <button type="button">Zaloguj się przez Google</button>
             </a>
             <button type="submit">Zaloguj</button>

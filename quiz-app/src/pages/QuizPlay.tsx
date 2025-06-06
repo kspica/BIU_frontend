@@ -7,6 +7,7 @@ import {QuestionDisplay} from "../components/QuestionDisplay";
 import {QuizProgress} from "../components/QuizProgress";
 import {useAuth} from "../auth/AuthContext";
 import "../styles/question-builder.scss";
+import {API_URL} from "../api/config";
 
 
 const QuizPlayInner = () => {
@@ -32,7 +33,7 @@ const QuizPlayInner = () => {
 
         const fetchQuiz = async () => {
             try {
-                const res = await axios.get(`http://localhost:8080/api/quizzes/${quizId}`, {
+                const res = await axios.get(`${API_URL}/quizzes/${quizId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -52,7 +53,7 @@ const QuizPlayInner = () => {
 
         const submitResult = async () => {
             try {
-                await axios.post("http://localhost:8080/api/results", {
+                await axios.post(`${API_URL}/results`, {
                     quizId: quiz.id,
                     score,
                     timeTakenSeconds: quiz.timeLimit * 60 - timeLeft,
@@ -69,7 +70,7 @@ const QuizPlayInner = () => {
         };
 
         submitResult();
-    }, [isFinished, quiz, score, timeLeft, token]);
+    }, [isFinished, quiz, score, timeLeft, token, tournamentId]);
 
     if (!quiz) {
         return (
@@ -95,7 +96,7 @@ const QuizPlayInner = () => {
             <div className="form-container">
                 <QuizProgress/>
                 {currentQuestion && <QuestionDisplay question={currentQuestion}/>}
-                {feedback && <p className="feedback">{feedback}</p>}
+                <p className="feedback">{feedback ?? "\u00A0"}</p>
                 <div className="quiz-timer">
                     <span className="quiz-timer-icon">⏱️</span>
                     <span className="quiz-timer-label">Pozostały czas:</span>

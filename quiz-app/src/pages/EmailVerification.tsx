@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
+import { API_URL } from "../api/config";
 
 export const EmailVerification = () => {
     const [params] = useSearchParams();
@@ -9,7 +10,7 @@ export const EmailVerification = () => {
     useEffect(() => {
         const token = params.get("token");
         if (token) {
-            axios.get(`http://localhost:8080/api/auth/verify?token=${token}`)
+            axios.get(`${API_URL}/auth/verify?token=${token}`)
                 .then(res => setMessage(res.data))
                 .catch(() => setMessage("Nieprawidłowy lub wygasły token"));
         }

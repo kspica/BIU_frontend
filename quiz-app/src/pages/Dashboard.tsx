@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../auth/AuthContext";
+import { API_URL } from "../api/config";
 
 interface Quiz {
     id: number;
@@ -25,7 +26,7 @@ export const Dashboard = () => {
     useEffect(() => {
         const fetchQuizzes = async () => {
             try {
-                const res = await axios.get("http://localhost:8080/api/quizzes/user", {
+                const res = await axios.get(`${API_URL}/quizzes/user`, {
                     headers: {Authorization: `Bearer ${token}`}
                 });
                 setQuizzes(res.data);
@@ -53,7 +54,7 @@ export const Dashboard = () => {
     const createTournament = async () => {
         if (!selectedQuizId || !startTime || !endTime) return;
         try {
-            await axios.post("http://localhost:8080/api/tournaments", {
+            await axios.post(`${API_URL}/tournaments`, {
                 quizId: selectedQuizId,
                 startTime,
                 endTime

@@ -3,6 +3,7 @@ import { useAuth } from "../auth/AuthContext";
 import { DashboardLayout } from "../layouts/DashboardLayout";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {API_URL} from "../api/config";
 
 interface Quiz {
     id: number;
@@ -19,7 +20,7 @@ export const MyQuizzes = () => {
 
     const fetchQuizzes = useCallback(async () => {
         try {
-            const res = await axios.get("http://localhost:8080/api/quizzes/user", {
+            const res = await axios.get(`${API_URL}/quizzes/user`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (Array.isArray(res.data)) {
@@ -44,7 +45,7 @@ export const MyQuizzes = () => {
     const handleDelete = async (quizId: number) => {
         if (!window.confirm("Czy na pewno chcesz usunąć ten quiz?")) return;
         try {
-            await axios.delete(`http://localhost:8080/api/quizzes/${quizId}`, {
+            await axios.delete(`${API_URL}/quizzes/${quizId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

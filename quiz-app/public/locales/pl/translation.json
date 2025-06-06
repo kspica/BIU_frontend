@@ -1,0 +1,171 @@
+{
+  "login": {
+    "title": "Zaloguj się",
+    "username": "Login",
+    "password": "Hasło",
+    "google": "Zaloguj przez Google",
+    "submit": "Zaloguj",
+    "resetPassword": "Zresetuj hasło",
+    "register": "Zarejestruj się",
+    "invalid": "Nieprawidłowe dane logowania."
+  },
+  "register": {
+    "title": "Rejestracja",
+    "username": "Nazwa użytkownika",
+    "email": "E-mail",
+    "password": "Hasło",
+    "confirm": "Powtórz hasło",
+    "submit": "Zarejestruj się",
+    "usernameTaken": "Nazwa użytkownika jest zajęta",
+    "emailTaken": "E-mail jest już zarejestrowany",
+    "required": "Wszystkie pola są wymagane.",
+    "mismatch": "Hasła się nie zgadzają.",
+    "passwordLength": "Hasło musi mieć co najmniej 6 znaków.",
+    "formErrors": "Popraw błędy formularza.",
+    "success": "Sprawdź skrzynkę e-mail"
+  },
+  "forgot": {
+    "title": "Odzyskiwanie hasła",
+    "emailPlaceholder": "Twój e-mail",
+    "submit": "Wyślij link resetujący",
+    "success": "Link do resetu hasła został wysłany.",
+    "failure": "Nie udało się wysłać e-maila."
+  },
+  "reset": {
+    "title": "Ustaw nowe hasło",
+    "newPassword": "Nowe hasło",
+    "confirmPassword": "Powtórz hasło",
+    "submit": "Zmień hasło",
+    "mismatch": "Hasła nie są zgodne.",
+    "success": "Hasło zostało zmienione.",
+    "failure": "Nie udało się zresetować hasła."
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "quizCreator": "Kreator quizów",
+    "myQuizzes": "Moje quizy",
+    "quizSearch": "Wyszukiwarka quizów",
+    "leaderboard": "Najlepsze wyniki",
+    "tournaments": "Turnieje",
+    "statistics": "Statystyki"
+  },
+  "dashboard": {
+    "title": "Moje quizy",
+    "noQuizzes": "Brak quizów do rozwiązania.",
+    "start": "Rozpocznij",
+    "challenge": "Rywalizuj",
+    "organize": "Zorganizuj Turniej",
+    "tournamentTitle": "Zorganizuj Turniej",
+    "startLabel": "Start:",
+    "endLabel": "Koniec:",
+    "create": "Utwórz",
+    "cancel": "Anuluj",
+    "created": "Turniej utworzony!"
+  },
+  "quiz": {
+    "category": "Kategoria:",
+    "difficulty": "Trudność:"
+  },
+  "builder": {
+    "title": "Stwórz nowy quiz",
+    "categoryPlaceholder": "Wybierz kategorię",
+    "difficultyPlaceholder": "Poziom trudności",
+    "difficultyEasy": "Łatwy",
+    "difficultyMedium": "Średni",
+    "difficultyHard": "Trudny",
+    "coverUrl": "URL obrazka",
+    "timeLimit": "Limit czasowy (min)",
+    "next": "Dalej",
+    "mock": "Załaduj dane testowe"
+  },
+  "questionForm": {
+    "single": "Jednokrotnego wyboru",
+    "multiple": "Wielokrotnego wyboru",
+    "true_false": "Prawda / Fałsz",
+    "open": "Odpowiedź otwarta",
+    "content": "Treść pytania",
+    "options": "Opcje:",
+    "option": "Opcja",
+    "delete": "Usuń",
+    "addOption": "Dodaj opcję",
+    "correct": "Poprawne odpowiedzi:",
+    "add": "Dodaj pytanie"
+  },
+  "questionBuilder": {
+    "title": "Dodaj pytanie",
+    "added": "Dodane pytania:",
+    "save": "Zakończ i zapisz quiz",
+    "back": "Wstecz",
+    "loadMock": "Załaduj pytania testowe",
+    "saving": "Zapisywanie..."
+  },
+  "myquizzes": {
+    "title": "Moje quizy",
+    "none": "Brak zapisanych quizów.",
+    "deleteConfirm": "Czy na pewno chcesz usunąć ten quiz?",
+    "delete": "Usuń"
+  },
+  "quizSearch": {
+    "title": "Wyszukiwarka quizów",
+    "titlePlaceholder": "Tytuł",
+    "categoryPlaceholder": "Kategoria",
+    "difficulty": "Poziom",
+    "clear": "Wyczyść filtry",
+    "none": "Brak quizów spełniających kryteria."
+  },
+  "leaderboard": {
+    "title": "Najlepsze wyniki – wybierz quiz",
+    "none": "Brak dostępnych quizów."
+  },
+  "quizLeaderboard": {
+    "title": "Najlepsze wyniki",
+    "none": "Brak wyników dla tego quizu.",
+    "place": "Miejsce",
+    "user": "Użytkownik",
+    "score": "Wynik",
+    "time": "Czas",
+    "date": "Data"
+  },
+  "quizPlay": {
+    "loading": "Ładowanie quizu...",
+    "finished": "Quiz zakończony!",
+    "score": "Twój wynik",
+    "timeLeft": "Pozostały czas:",
+    "confirm": "Zatwierdź odpowiedź",
+    "next": "Dalej"
+  },
+  "progress": {
+    "progress": "Postęp:",
+    "score": "Wynik:"
+  },
+  "tournaments": {
+    "title": "Aktywne Turnieje",
+    "none": "Brak aktywnych turniejów.",
+    "join": "Weź udział",
+    "results": "Sprawdź wyniki"
+  },
+  "tournamentLeaderboard": {
+    "title": "Wyniki turnieju #{{id}}",
+    "none": "Brak wyników dla tego turnieju.",
+    "place": "Miejsce",
+    "user": "Użytkownik",
+    "score": "Wynik"
+  },
+  "statistics": {
+    "title": "Twoje Statystyki",
+    "loading": "Ładowanie statystyk...",
+    "total": "Łącznie rozwiązanych quizów:",
+    "average": "Średni wynik:",
+    "highest": "Najwyższy wynik:",
+    "byCategory": "Podział quizów wg kategorii:",
+    "recommended": "Quizy do dalszej nauki:"
+  },
+  "multiplayerLobby": {
+    "title": "Lobby Rywalizacji",
+    "roomId": "ID pokoju:",
+    "quizId": "Quiz ID:",
+    "players": "Gracze w pokoju:",
+    "waiting": "Oczekiwanie na drugiego gracza...",
+    "ready": "Obaj gracze połączeni! Rozpoczynanie gry..."
+  }
+}

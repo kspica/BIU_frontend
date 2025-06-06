@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
+import { API_URL } from "../api/config";
 
 export const ResetPasswordForm = () => {
     const [params] = useSearchParams();
@@ -18,7 +19,7 @@ export const ResetPasswordForm = () => {
         }
 
         try {
-            await axios.post(`http://localhost:8080/api/auth/reset-password`, null, {
+            await axios.post(`${API_URL}/auth/reset-password`, null, {
                 params: { token, newPassword: password },
             });
             setMessage("Hasło zostało zmienione.");

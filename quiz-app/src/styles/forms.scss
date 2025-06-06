@@ -59,7 +59,9 @@
   }
 }
 
-input, textarea, select {
+input:not([type="radio"]):not([type="checkbox"]),
+textarea,
+select {
   width: 100%;
   padding: 0.75rem 1rem;
   margin: 0.5rem 0;
@@ -76,6 +78,12 @@ input, textarea, select {
     outline: none;
     background: #ffffff;
   }
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  width: auto;
+  margin-right: 0.4rem;
 }
 
 // Layout

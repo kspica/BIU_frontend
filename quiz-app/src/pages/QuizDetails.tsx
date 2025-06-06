@@ -4,6 +4,7 @@ import {useAuth} from "../auth/AuthContext";
 import {DashboardLayout} from "../layouts/DashboardLayout";
 import axios from "axios";
 import {QuestionForm, QuestionFormData} from "./QuestionForm";
+import {API_URL} from "../api/config";
 
 interface Question {
     id?: number;
@@ -35,7 +36,7 @@ export const QuizDetails = () => {
     useEffect(() => {
         const fetchQuiz = async () => {
             try {
-                const res = await axios.get(`http://localhost:8080/api/quizzes/${quizId}`, {
+                const res = await axios.get(`${API_URL}/quizzes/${quizId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -55,7 +56,7 @@ export const QuizDetails = () => {
     const handleSave = async () => {
         try {
             const updated = {...quiz, description, category, difficulty};
-            await axios.put(`http://localhost:8080/api/quizzes/${quizId}`, updated, {
+            await axios.put(`${API_URL}/quizzes/${quizId}`, updated, {
                 headers: {Authorization: `Bearer ${token}`}
             });
             setQuiz(updated as Quiz);
@@ -73,7 +74,7 @@ export const QuizDetails = () => {
             questions: quiz.questions.filter((q) => q.id !== questionId),
         };
         try {
-            await axios.put(`http://localhost:8080/api/quizzes/${quiz.id}`, updated, {
+            await axios.put(`${API_URL}/quizzes/${quiz.id}`, updated, {
                 headers: {Authorization: `Bearer ${token}`}
             });
             setQuiz(updated);
@@ -99,7 +100,7 @@ export const QuizDetails = () => {
         };
 
         try {
-            await axios.put(`http://localhost:8080/api/quizzes/${quiz.id}`, updated, {
+            await axios.put(`${API_URL}/quizzes/${quiz.id}`, updated, {
                 headers: {Authorization: `Bearer ${token}`},
             });
             setQuiz(updated);

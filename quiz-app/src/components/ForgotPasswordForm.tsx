@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { API_URL } from "../api/config";
 
 export const ForgotPasswordForm = () => {
     const [email, setEmail] = useState("");
@@ -8,7 +9,7 @@ export const ForgotPasswordForm = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await axios.post("http://localhost:8080/api/auth/forgot-password", email, {
+            await axios.post(`${API_URL}/auth/forgot-password`, email, {
                 headers: { "Content-Type": "text/plain" },
             });
             setInfo("Link do resetu hasła został wysłany na e-mail.");

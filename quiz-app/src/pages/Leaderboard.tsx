@@ -3,6 +3,7 @@ import {useAuth} from "../auth/AuthContext";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {DashboardLayout} from "../layouts/DashboardLayout";
+import { API_URL } from "../api/config";
 
 interface Quiz {
     id: number;
@@ -22,7 +23,7 @@ export const Leaderboard = () => {
 
         const fetch = async () => {
             try {
-                const res = await axios.get("http://localhost:8080/api/quizzes", {
+                const res = await axios.get(`${API_URL}/quizzes`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setQuizzes(res.data);

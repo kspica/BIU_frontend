@@ -1,6 +1,7 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {DashboardLayout} from "../layouts/DashboardLayout";
+import { API_URL } from "../api/config";
 
 interface LeaderboardEntry {
     username: string;
@@ -16,7 +17,7 @@ export const TournamentLeaderboard = () => {
         const token = localStorage.getItem("token");
         if (!token || !tournamentId) return;
 
-        fetch(`http://localhost:8080/api/tournaments/${tournamentId}/leaderboard`, {
+        fetch(`${API_URL}/tournaments/${tournamentId}/leaderboard`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

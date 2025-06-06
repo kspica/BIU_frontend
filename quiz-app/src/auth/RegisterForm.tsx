@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import axios from "axios";
+import { API_URL } from "../api/config";
 
 export const RegisterForm = () => {
     const [username, setUsername] = useState("");
@@ -16,7 +17,7 @@ export const RegisterForm = () => {
         const checkUsername = setTimeout(() => {
             if (username.length >= 3) {
                 axios
-                    .get(`http://localhost:8080/api/auth/check-username?username=${username}`)
+                    .get(`${API_URL}/auth/check-username?username=${username}`)
                     .then(() => setUsernameError(""))
                     .catch(() => setUsernameError("Nazwa użytkownika jest zajęta"));
             }
@@ -29,7 +30,7 @@ export const RegisterForm = () => {
         const checkEmail = setTimeout(() => {
             if (email.includes("@")) {
                 axios
-                    .get(`http://localhost:8080/api/auth/check-email?email=${email}`)
+                    .get(`${API_URL}/auth/check-email?email=${email}`)
                     .then(() => setEmailError(""))
                     .catch(() => setEmailError("E-mail jest już zarejestrowany"));
             }
@@ -63,7 +64,7 @@ export const RegisterForm = () => {
         }
 
         try {
-            await axios.post("http://localhost:8080/api/auth/register", {
+            await axios.post(`${API_URL}/auth/register`, {
                 username,
                 email,
                 password,

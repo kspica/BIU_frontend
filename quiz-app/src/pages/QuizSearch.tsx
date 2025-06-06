@@ -3,6 +3,7 @@ import axios from "axios";
 import {useAuth} from "../auth/AuthContext";
 import {DashboardLayout} from "../layouts/DashboardLayout";
 import "../styles/forms.scss";
+import {API_URL} from "../api/config";
 
 interface Quiz {
     id: number;
@@ -23,7 +24,7 @@ export const QuizSearch = () => {
 
     const fetchQuizzes = useCallback(async () => {
         try {
-            const res = await axios.get("http://localhost:8080/api/quizzes/search", {
+            const res = await axios.get(`${API_URL}/quizzes/search`, {
                 headers: { Authorization: `Bearer ${token}` },
                 params: {
                     title: filters.title || undefined,

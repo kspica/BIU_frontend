@@ -1,0 +1,171 @@
+{
+  "login": {
+    "title": "Log in",
+    "username": "Username",
+    "password": "Password",
+    "google": "Sign in with Google",
+    "submit": "Log in",
+    "resetPassword": "Reset password",
+    "register": "Register",
+    "invalid": "Invalid credentials."
+  },
+  "register": {
+    "title": "Register",
+    "username": "Username",
+    "email": "E-mail",
+    "password": "Password",
+    "confirm": "Repeat password",
+    "submit": "Register",
+    "usernameTaken": "Username is taken",
+    "emailTaken": "E-mail already registered",
+    "required": "All fields are required.",
+    "mismatch": "Passwords do not match.",
+    "passwordLength": "Password must be at least 6 characters.",
+    "formErrors": "Fix form errors.",
+    "success": "Check your e-mail"
+  },
+  "forgot": {
+    "title": "Recover password",
+    "emailPlaceholder": "Your e-mail",
+    "submit": "Send reset link",
+    "success": "Reset link sent.",
+    "failure": "Failed to send e-mail."
+  },
+  "reset": {
+    "title": "Set new password",
+    "newPassword": "New password",
+    "confirmPassword": "Repeat password",
+    "submit": "Change password",
+    "mismatch": "Passwords do not match.",
+    "success": "Password changed.",
+    "failure": "Failed to reset password."
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "quizCreator": "Quiz Creator",
+    "myQuizzes": "My quizzes",
+    "quizSearch": "Quiz search",
+    "leaderboard": "Leaderboard",
+    "tournaments": "Tournaments",
+    "statistics": "Statistics"
+  },
+  "dashboard": {
+    "title": "My quizzes",
+    "noQuizzes": "No quizzes to solve.",
+    "start": "Start",
+    "challenge": "Compete",
+    "organize": "Organize Tournament",
+    "tournamentTitle": "Organize Tournament",
+    "startLabel": "Start:",
+    "endLabel": "End:",
+    "create": "Create",
+    "cancel": "Cancel",
+    "created": "Tournament created!"
+  },
+  "quiz": {
+    "category": "Category:",
+    "difficulty": "Difficulty:"
+  },
+  "builder": {
+    "title": "Create new quiz",
+    "categoryPlaceholder": "Choose category",
+    "difficultyPlaceholder": "Difficulty",
+    "difficultyEasy": "Easy",
+    "difficultyMedium": "Medium",
+    "difficultyHard": "Hard",
+    "coverUrl": "Image URL",
+    "timeLimit": "Time limit (min)",
+    "next": "Next",
+    "mock": "Load mock data"
+  },
+  "questionForm": {
+    "single": "Single choice",
+    "multiple": "Multiple choice",
+    "true_false": "True / False",
+    "open": "Open answer",
+    "content": "Question content",
+    "options": "Options:",
+    "option": "Option",
+    "delete": "Delete",
+    "addOption": "Add option",
+    "correct": "Correct answers:",
+    "add": "Add question"
+  },
+  "questionBuilder": {
+    "title": "Add question",
+    "added": "Added questions:",
+    "save": "Finish and save quiz",
+    "back": "Back",
+    "loadMock": "Load sample questions",
+    "saving": "Saving..."
+  },
+  "myquizzes": {
+    "title": "My quizzes",
+    "none": "No saved quizzes.",
+    "deleteConfirm": "Are you sure you want to delete this quiz?",
+    "delete": "Delete"
+  },
+  "quizSearch": {
+    "title": "Quiz search",
+    "titlePlaceholder": "Title",
+    "categoryPlaceholder": "Category",
+    "difficulty": "Level",
+    "clear": "Clear filters",
+    "none": "No quizzes match."
+  },
+  "leaderboard": {
+    "title": "Best results – choose quiz",
+    "none": "No quizzes available."
+  },
+  "quizLeaderboard": {
+    "title": "Best results",
+    "none": "No results for this quiz.",
+    "place": "Place",
+    "user": "User",
+    "score": "Score",
+    "time": "Time",
+    "date": "Date"
+  },
+  "quizPlay": {
+    "loading": "Loading quiz...",
+    "finished": "Quiz finished!",
+    "score": "Your score",
+    "timeLeft": "Time left:",
+    "confirm": "Confirm answer",
+    "next": "Next"
+  },
+  "progress": {
+    "progress": "Progress:",
+    "score": "Score:"
+  },
+  "tournaments": {
+    "title": "Active Tournaments",
+    "none": "No active tournaments.",
+    "join": "Join",
+    "results": "Show results"
+  },
+  "tournamentLeaderboard": {
+    "title": "Tournament results #{{id}}",
+    "none": "No results for this tournament.",
+    "place": "Place",
+    "user": "User",
+    "score": "Score"
+  },
+  "statistics": {
+    "title": "Your Statistics",
+    "loading": "Loading statistics...",
+    "total": "Total solved quizzes:",
+    "average": "Average score:",
+    "highest": "Highest score:",
+    "byCategory": "Quizzes by category:",
+    "recommended": "Quizzes to study more:"
+  },
+  "multiplayerLobby": {
+    "title": "Competition Lobby",
+    "roomId": "Room ID:",
+    "quizId": "Quiz ID:",
+    "players": "Players in room:",
+    "waiting": "Waiting for second player...",
+    "ready": "Both players connected! Starting game..."
+  }
+}

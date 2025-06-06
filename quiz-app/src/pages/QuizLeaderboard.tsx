@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import axios from "axios";
 import {useAuth} from "../auth/AuthContext";
 import {DashboardLayout} from "../layouts/DashboardLayout";
+import {API_URL} from "../api/config";
 
 interface QuizResult {
     id: number;
@@ -22,7 +23,7 @@ export const QuizLeaderboard = () => {
 
         const fetch = async () => {
             try {
-                const res = await axios.get(`http://localhost:8080/api/results/top10/${quizId}`, {
+                const res = await axios.get(`${API_URL}/results/top10/${quizId}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setResults(res.data);
