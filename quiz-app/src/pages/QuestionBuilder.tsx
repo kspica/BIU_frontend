@@ -6,6 +6,7 @@ import {createQuiz} from "../api/quizApi";
 import {useState} from "react";
 import "../styles/question-builder.scss";
 import {QuestionForm} from "./QuestionForm";
+import {useTranslation} from "react-i18next";
 
 
 type QuestionFormData = {
@@ -19,6 +20,7 @@ export const QuestionBuilder = () => {
     const {quiz, setQuiz} = useQuiz();
     const navigate = useNavigate();
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const {t} = useTranslation();
 //DO TESTOW
     const MOCK_QUESTIONS = [
         {
@@ -36,35 +38,9 @@ export const QuestionBuilder = () => {
     ];
 
     const loadMockQuestions = () => {
-        setQuiz({ ...quiz, questions: [...quiz.questions, ...MOCK_QUESTIONS] });
+        setQuiz({...quiz, questions: [...quiz.questions, ...MOCK_QUESTIONS]});
     };
 
-    const {register, handleSubmit, watch, control, reset} = useForm<QuestionFormData>({
-        defaultValues: {
-            type: "SINGLE",
-            options: [{value: ""}, {value: ""}],
-            correctAnswers: [],
-        },
-    });
-
-    const {fields, append, remove} = useFieldArray({
-        control,
-        name: "options",
-    });
-
-    const type = watch("type");
-
-    const onAddQuestion = (data: QuestionFormData) => {
-        const formatted = {
-            type: data.type,
-            content: data.content,
-            options: data.options.map((o) => o.value),
-            correctAnswers: data.correctAnswers,
-        };
-
-        setQuiz({...quiz, questions: [...quiz.questions, formatted]});
-        reset({content: "", type: data.type, options: [{value: ""}, {value: ""}], correctAnswers: []});
-    };
 
     const onSubmit = async () => {
         setIsSubmitting(true);
@@ -79,12 +55,10 @@ export const QuestionBuilder = () => {
         }
     };
 
-
-
     return (
         <DashboardLayout>
             <div className="form-container">
-                <h2 className="form-title">Dodaj pytanie</h2>
+                <h2 className="form-title">{t('questionBuilder.title')}</h2>
 
                 <QuestionForm onSubmit={(data) => {
                     const formatted = {
@@ -94,10 +68,10 @@ export const QuestionBuilder = () => {
                         correctAnswers: data.correctAnswers,
                     };
                     setQuiz({...quiz, questions: [...quiz.questions, formatted]});
-                }} />
+                }}/>
 
                 <div className="question-preview">
-                    <h3>Dodane pytania:</h3>
+                    <h3>{t('questionBuilder.added')}</h3>
                     <ul>
                         {quiz.questions.map((q, index) => (
                             <li key={index}><strong>{index + 1}.</strong> {q.content}</li>
@@ -105,9 +79,10 @@ export const QuestionBuilder = () => {
                     </ul>
                 </div>
                 <button onClick={onSubmit} className="form-button"
-                        disabled={isSubmitting}> {isSubmitting ? "Zapisywanie..." : "Zakończ i zapisz quiz"}</button>
-                <button onClick={() => navigate("/quiz-builder")} className="form-button">Wstecz</button>
-                <button onClick={loadMockQuestions} className="form-button">Załaduj pytania testowe</button>
+                        disabled={isSubmitting}> {isSubmitting ? t('questionBuilder.saving') : t('questionBuilder.save')}</button>
+                <button onClick={() => navigate("/quiz-builder")}
+                        className="form-button">{t('questionBuilder.back')}</button>
+                <button onClick={loadMockQuestions} className="form-button">{t('questionBuilder.loadMock')}</button>
 
             </div>
         </DashboardLayout>

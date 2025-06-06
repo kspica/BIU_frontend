@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { useAuth } from "../auth/AuthContext";
 import { DashboardLayout } from "../layouts/DashboardLayout";
@@ -40,6 +41,7 @@ const COLORS = [
 
 export const Statistics = () => {
     const { token } = useAuth();
+    const { t } = useTranslation();
     const [stats, setStats] = useState<UserStats | null>(null);
 
     useEffect(() => {
@@ -68,19 +70,19 @@ export const Statistics = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
             >
-                <h2 className="text-xl font-semibold mb-4">Twoje Statystyki</h2>
+                <h2 className="text-xl font-semibold mb-4">{t('statistics.title')}</h2>
 
                 {!stats ? (
-                    <p>Ładowanie statystyk...</p>
+                    <p>{t('statistics.loading')}</p>
                 ) : (
                     <div className="form-container">
                         <div className="mb-6">
-                            <p><strong>Łącznie rozwiązanych quizów:</strong> {stats.totalQuizzes}</p>
-                            <p><strong>Średni wynik:</strong> {stats.averageScore.toFixed(2)}</p>
-                            <p><strong>Najwyższy wynik:</strong> {stats.highestScore}</p>
+                            <p><strong>{t('statistics.total')}</strong> {stats.totalQuizzes}</p>
+                            <p><strong>{t('statistics.average')}</strong> {stats.averageScore.toFixed(2)}</p>
+                            <p><strong>{t('statistics.highest')}</strong> {stats.highestScore}</p>
                         </div>
 
-                        <h3 className="text-lg font-medium mb-2">Podział quizów wg kategorii:</h3>
+                        <h3 className="text-lg font-medium mb-2">{t('statistics.byCategory')}</h3>
                         <div className="chart-container">
                             <ResponsiveContainer>
                                 <PieChart>
@@ -111,7 +113,7 @@ export const Statistics = () => {
                             </ResponsiveContainer>
                         </div>
 
-                        <h3 className="text-lg font-medium mt-6">Quizy do dalszej nauki:</h3>
+                        <h3 className="text-lg font-medium mt-6">{t('statistics.recommended')}</h3>
                         <ul className="list-disc pl-5">
                             {stats.recommended.map((quiz) => (
                                 <li key={quiz.id}>

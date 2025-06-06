@@ -1,8 +1,10 @@
 import {useState, useEffect} from "react";
+import {useTranslation} from "react-i18next";
 import axios from "axios";
 import { API_URL } from "../api/config";
 
 export const RegisterForm = () => {
+    const { t } = useTranslation();
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -19,7 +21,7 @@ export const RegisterForm = () => {
                 axios
                     .get(`${API_URL}/auth/check-username?username=${username}`)
                     .then(() => setUsernameError(""))
-                    .catch(() => setUsernameError("Nazwa użytkownika jest zajęta"));
+                    .catch(() => setUsernameError(t('register.usernameTaken')));
             }
         }, 500);
 
@@ -32,7 +34,7 @@ export const RegisterForm = () => {
                 axios
                     .get(`${API_URL}/auth/check-email?email=${email}`)
                     .then(() => setEmailError(""))
-                    .catch(() => setEmailError("E-mail jest już zarejestrowany"));
+                    .catch(() => setEmailError(t('register.emailTaken')));
             }
         }, 500);
 
@@ -44,22 +46,22 @@ export const RegisterForm = () => {
         setFormError("");
 
         if (!username || !email || !password || !confirmPassword) {
-            setFormError("Wszystkie pola są wymagane.");
+            setFormError(t('register.required'));
             return;
         }
 
         if (password !== confirmPassword) {
-            setFormError("Hasła się nie zgadzają.");
+            setFormError(t('register.mismatch'));
             return;
         }
 
         if (password.length < 6) {
-            setFormError("Hasło musi mieć co najmniej 6 znaków.");
+            setFormError(t('register.passwordLength'));
             return;
         }
 
         if (usernameError || emailError) {
-            setFormError("Popraw błędy formularza.");
+            setFormError(t('register.formErrors'));
             return;
         }
 
@@ -69,43 +71,43 @@ export const RegisterForm = () => {
                 email,
                 password,
             });
-            setMessage("Sprawdź skrzynkę e-mail");
+            setMessage(t('register.success'));
         } catch (e) {
-            setFormError("Błąd podczas rejestracji.");
+            setFormError(t('register.error', 'B\u0142\u0105d podczas rejestracji.'));
         }
     };
 
     return (
         <form className="form" onSubmit={handleRegister}>
-            <h2>Rejestracja</h2>
+            <h2>{t('register.title')}</h2>
             <input
                 type="text"
-                placeholder="Nazwa użytkownika"
+                placeholder={t('register.username')}
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
             />
             {usernameError && <p className="error">{usernameError}</p>}
             <input
                 type="email"
-                placeholder="E-mail"
+                placeholder={t('register.email')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
             />
             {emailError && <p className="error">{emailError}</p>}
             <input
                 type="password"
-                placeholder="Hasło"
+                placeholder={t('register.password')}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
             <input
                 type="password"
-                placeholder="Powtórz hasło"
+                placeholder={t('register.confirm')}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
             />
             {formError && <p className="error">{formError}</p>}
-            <button type="submit">Zarejestruj się</button>
+            <button type="submit">{t('register.submit')}</button>
             {message && <p className="success">{message}</p>}
         </form>
     );

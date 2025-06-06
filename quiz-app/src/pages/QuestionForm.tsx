@@ -1,5 +1,6 @@
 import {useFieldArray, useForm} from "react-hook-form";
 import {QuestionType} from "../context/QuizContext";
+import {useTranslation} from "react-i18next";
 
 export type QuestionFormData = {
     content: string;
@@ -29,6 +30,8 @@ export const QuestionForm = ({onSubmit, initialType = "SINGLE"}: Props) => {
         }
     });
 
+    const { t } = useTranslation();
+
     const {fields, append, remove} = useFieldArray({control, name: "options"});
     const type = watch("type");
 
@@ -40,31 +43,31 @@ export const QuestionForm = ({onSubmit, initialType = "SINGLE"}: Props) => {
     return (
         <form onSubmit={handleSubmit(handleLocalSubmit)}>
             <select {...register("type")} className="form-input">
-                <option value="SINGLE">Jednokrotnego wyboru</option>
-                <option value="MULTIPLE">Wielokrotnego wyboru</option>
-                <option value="TRUE_FALSE">Prawda / Fałsz</option>
-                <option value="OPEN">Odpowiedź otwarta</option>
+                <option value="SINGLE">{t('questionForm.single')}</option>
+                <option value="MULTIPLE">{t('questionForm.multiple')}</option>
+                <option value="TRUE_FALSE">{t('questionForm.true_false')}</option>
+                <option value="OPEN">{t('questionForm.open')}</option>
             </select>
 
-            <input {...register("content", {required: true})} className="form-input" placeholder="Treść pytania"/>
+            <input {...register("content", {required: true})} className="form-input" placeholder={t('questionForm.content')}/>
 
             {type !== "OPEN" && (
                 <>
-                    <h4>Opcje:</h4>
+                    <h4>{t('questionForm.options')}</h4>
                     {fields.map((field, index) => (
                         <div key={field.id} className="form-option-row">
                             <input
                                 {...register(`options.${index}.value`, {required: true})}
                                 className="form-input"
-                                placeholder={`Opcja ${index + 1}`}
+                                placeholder={`${t('questionForm.option')} ${index + 1}`}
                             />
-                            <button type="button" className="delete-button" onClick={() => remove(index)}>Usuń</button>
+                            <button type="button" className="delete-button" onClick={() => remove(index)}>{t('questionForm.delete')}</button>
                         </div>
                     ))}
-                    <button type="button" className="form-button" onClick={() => append({value: ""})}>+ Dodaj opcję
+                    <button type="button" className="form-button" onClick={() => append({value: ""})}>+ {t('questionForm.addOption')}
                     </button>
 
-                    <h4>Poprawne odpowiedzi:</h4>
+                    <h4>{t('questionForm.correct')}</h4>
                     {type === "SINGLE" ? (
                         <select {...register("correctAnswers.0")} className="form-input">
                             {watch("options").map((opt, index) => (
@@ -81,14 +84,14 @@ export const QuestionForm = ({onSubmit, initialType = "SINGLE"}: Props) => {
                                     value={opt.value}
                                     {...register("correctAnswers")}
                                 />
-                                {opt.value || `Opcja ${index + 1}`}
+                                {opt.value || `${t('questionForm.option')} ${index + 1}`}
                             </label>
                         ))
                     )}
                 </>
             )}
 
-            <button type="submit" className="form-button">Dodaj pytanie</button>
+            <button type="submit" className="form-button">{t('questionForm.add')}</button>
         </form>
     );
 };

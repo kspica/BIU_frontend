@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {v4 as uuidv4} from "uuid";
 import {DashboardLayout} from "../layouts/DashboardLayout";
+import {useTranslation} from "react-i18next";
 
 interface Player {
     id: string;
@@ -11,6 +12,7 @@ interface Player {
 export const MultiplayerLobby = () => {
     const {quizId} = useParams();
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const [roomId] = useState(uuidv4());
     const [players, setPlayers] = useState<Player[]>([
@@ -42,11 +44,11 @@ export const MultiplayerLobby = () => {
     return (
         <DashboardLayout>
             <div className="lobby-container">
-                <h2>Lobby Rywalizacji</h2>
-                <p><strong>ID pokoju:</strong> {roomId}</p>
-                <p><strong>Quiz ID:</strong> {quizId}</p>
+                <h2>{t('multiplayerLobby.title')}</h2>
+                <p><strong>{t('multiplayerLobby.roomId')}</strong> {roomId}</p>
+                <p><strong>{t('multiplayerLobby.quizId')}</strong> {quizId}</p>
 
-                <h3>Gracze w pokoju:</h3>
+                <h3>{t('multiplayerLobby.players')}</h3>
                 <ul>
                     {players.map(player => (
                         <li key={player.id}>{player.name}</li>
@@ -54,9 +56,9 @@ export const MultiplayerLobby = () => {
                 </ul>
 
                 {players.length < 2 ? (
-                    <p>Oczekiwanie na drugiego gracza...</p>
+                    <p>{t('multiplayerLobby.waiting')}</p>
                 ) : (
-                    <p>Obaj gracze połączeni! Rozpoczynanie gry...</p>
+                    <p>{t('multiplayerLobby.ready')}</p>
                 )}
             </div>
         </DashboardLayout>

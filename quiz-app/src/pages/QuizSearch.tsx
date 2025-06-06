@@ -4,6 +4,7 @@ import {useAuth} from "../auth/AuthContext";
 import {DashboardLayout} from "../layouts/DashboardLayout";
 import "../styles/forms.scss";
 import {API_URL} from "../api/config";
+import {useTranslation} from "react-i18next";
 
 interface Quiz {
     id: number;
@@ -15,6 +16,7 @@ interface Quiz {
 
 export const QuizSearch = () => {
     const {token} = useAuth();
+    const { t } = useTranslation();
     const [filters, setFilters] = useState({ title: "", category: "", difficulty: "", timeLimit: "" });
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
 
@@ -47,13 +49,13 @@ export const QuizSearch = () => {
     return (
         <DashboardLayout>
             <div className="form-container">
-                <h2 className="form-title">Wyszukiwarka quizów</h2>
+                <h2 className="form-title">{t('quizSearch.title')}</h2>
                 <div className="filters-grid">
-                    <input type="text" name="title" placeholder="Tytuł" value={filters.title} onChange={handleChange}/>
-                    <input type="text" name="category" placeholder="Kategoria" value={filters.category}
+                    <input type="text" name="title" placeholder={t('quizSearch.titlePlaceholder')} value={filters.title} onChange={handleChange}/>
+                    <input type="text" name="category" placeholder={t('quizSearch.categoryPlaceholder')} value={filters.category}
                            onChange={handleChange}/>
                     <select name="difficulty" value={filters.difficulty} onChange={handleChange}>
-                        <option value="">Poziom</option>
+                        <option value="">{t('quizSearch.difficulty')}</option>
                         <option>Łatwy</option>
                         <option>Średni</option>
                         <option>Trudny</option>
@@ -65,13 +67,13 @@ export const QuizSearch = () => {
                     <button
                         className="form-button"
                         onClick={() => setFilters({title: "", category: "", difficulty: "", timeLimit: ""})}
-                    >Wyczyść filtry
+                    >{t('quizSearch.clear')}
                     </button>
                 </div>
 
 
                 {quizzes.length === 0 ? (
-                    <p>Brak quizów spełniających kryteria.</p>
+                    <p>{t('quizSearch.none')}</p>
                 ) : (
                     <ul className="list-reset">
                         {quizzes.map((q) => (

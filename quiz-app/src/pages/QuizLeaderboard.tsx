@@ -4,6 +4,7 @@ import axios from "axios";
 import {useAuth} from "../auth/AuthContext";
 import {DashboardLayout} from "../layouts/DashboardLayout";
 import {API_URL} from "../api/config";
+import {useTranslation} from "react-i18next";
 
 interface QuizResult {
     id: number;
@@ -16,6 +17,7 @@ interface QuizResult {
 export const QuizLeaderboard = () => {
     const {quizId} = useParams();
     const {token} = useAuth();
+    const { t } = useTranslation();
     const [results, setResults] = useState<QuizResult[]>([]);
 
     useEffect(() => {
@@ -38,18 +40,18 @@ export const QuizLeaderboard = () => {
     return (
         <DashboardLayout>
             <div className="form-container">
-                <h2 className="form-title">Najlepsze wyniki</h2>
+                <h2 className="form-title">{t('quizLeaderboard.title')}</h2>
                 {results.length === 0 ? (
-                    <p>Brak wyników dla tego quizu.</p>
+                    <p>{t('quizLeaderboard.none')}</p>
                 ) : (
                     <table className="table-layout">
                         <thead className="table-header">
                         <tr>
-                            <th className="table-cell">Miejsce</th>
-                            <th className="table-cell">Użytkownik</th>
-                            <th className="table-cell">Wynik</th>
-                            <th className="table-cell">Czas</th>
-                            <th className="table-cell">Data</th>
+                            <th className="table-cell">{t('quizLeaderboard.place')}</th>
+                            <th className="table-cell">{t('quizLeaderboard.user')}</th>
+                            <th className="table-cell">{t('quizLeaderboard.score')}</th>
+                            <th className="table-cell">{t('quizLeaderboard.time')}</th>
+                            <th className="table-cell">{t('quizLeaderboard.date')}</th>
                         </tr>
                         </thead>
                         <tbody>

@@ -4,6 +4,7 @@ import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {DashboardLayout} from "../layouts/DashboardLayout";
 import { API_URL } from "../api/config";
+import {useTranslation} from "react-i18next";
 
 interface Quiz {
     id: number;
@@ -15,6 +16,7 @@ interface Quiz {
 
 export const Leaderboard = () => {
     const {token} = useAuth();
+    const { t } = useTranslation();
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
     const navigate = useNavigate();
 
@@ -38,9 +40,9 @@ export const Leaderboard = () => {
     return (
         <DashboardLayout>
             <div className="form-container">
-                <h2 className="form-title">Najlepsze wyniki – wybierz quiz</h2>
+                <h2 className="form-title">{t('leaderboard.title')}</h2>
                 {quizzes.length === 0 ? (
-                    <p>Brak dostępnych quizów.</p>
+                    <p>{t('leaderboard.none')}</p>
                 ) : (
                     <ul className="list-reset">
                         {quizzes.map((q) => (

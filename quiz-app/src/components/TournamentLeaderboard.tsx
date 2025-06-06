@@ -2,6 +2,7 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {DashboardLayout} from "../layouts/DashboardLayout";
 import { API_URL } from "../api/config";
+import {useTranslation} from "react-i18next";
 
 interface LeaderboardEntry {
     username: string;
@@ -10,6 +11,7 @@ interface LeaderboardEntry {
 
 export const TournamentLeaderboard = () => {
     const {tournamentId} = useParams();
+    const { t } = useTranslation();
     const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
     const [error, setError] = useState<string | null>(null);
 
@@ -36,18 +38,18 @@ export const TournamentLeaderboard = () => {
     return (
         <DashboardLayout>
             <div className="form-container">
-                <h2 className="form-title">Wyniki turnieju #{tournamentId}</h2>
+                <h2 className="form-title">{t('tournamentLeaderboard.title', { id: tournamentId })}</h2>
                 {error ? (
                     <p className="error">{error}</p>
                 ) : entries.length === 0 ? (
-                    <p>Brak wyników dla tego turnieju.</p>
+                    <p>{t('tournamentLeaderboard.none')}</p>
                 ) : (
                     <table className="table-layout">
                         <thead className="table-header">
                         <tr>
-                            <th className="table-cell">Miejsce</th>
-                            <th className="table-cell">Użytkownik</th>
-                            <th className="table-cell">Wynik</th>
+                            <th className="table-cell">{t('tournamentLeaderboard.place')}</th>
+                            <th className="table-cell">{t('tournamentLeaderboard.user')}</th>
+                            <th className="table-cell">{t('tournamentLeaderboard.score')}</th>
                         </tr>
                         </thead>
                         <tbody>

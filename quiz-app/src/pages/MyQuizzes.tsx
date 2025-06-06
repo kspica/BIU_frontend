@@ -4,6 +4,7 @@ import { DashboardLayout } from "../layouts/DashboardLayout";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {API_URL} from "../api/config";
+import { useTranslation } from "react-i18next";
 
 interface Quiz {
     id: number;
@@ -15,6 +16,7 @@ interface Quiz {
 
 export const MyQuizzes = () => {
     const { token } = useAuth();
+    const { t } = useTranslation();
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
     const navigate = useNavigate();
 
@@ -43,7 +45,7 @@ export const MyQuizzes = () => {
     };
 
     const handleDelete = async (quizId: number) => {
-        if (!window.confirm("Czy na pewno chcesz usunąć ten quiz?")) return;
+        if (!window.confirm(t('myquizzes.deleteConfirm'))) return;
         try {
             await axios.delete(`${API_URL}/quizzes/${quizId}`, {
                 headers: {
@@ -53,16 +55,16 @@ export const MyQuizzes = () => {
             setQuizzes(prev => prev.filter(q => q.id !== quizId));
         } catch (error) {
             console.error("Błąd podczas usuwania quizu:", error);
-            alert("Wystąpił błąd przy usuwaniu quizu");
+            alert(t('myquizzes.deleteError', 'Wystąpił błąd przy usuwaniu quizu'));
         }
     };
 
     return (
         <DashboardLayout>
             <div className="form-container">
-                <h2 className="form-title">Moje quizy</h2>
+                <h2 className="form-title">{t('myquizzes.title')}</h2>
                 {quizzes.length === 0 ? (
-                    <p>Brak zapisanych quizów.</p>
+                    <p>{t('myquizzes.none')}</p>
                 ) : (
                     <ul className="list-reset">
                         {quizzes.map((quiz) => (
@@ -72,7 +74,7 @@ export const MyQuizzes = () => {
                                         <strong>{quiz.title}</strong> — {quiz.category} ({quiz.difficulty})
                                     </div>
                                     <button className="delete-button margin-left-1" onClick={() => handleDelete(quiz.id)}>
-                                        Usuń
+                                        {t('myquizzes.delete')}
                                     </button>
                                 </div>
                             </li>

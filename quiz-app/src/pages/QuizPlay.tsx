@@ -8,6 +8,7 @@ import {QuizProgress} from "../components/QuizProgress";
 import {useAuth} from "../auth/AuthContext";
 import "../styles/question-builder.scss";
 import {API_URL} from "../api/config";
+import {useTranslation} from "react-i18next";
 
 
 const QuizPlayInner = () => {
@@ -15,6 +16,7 @@ const QuizPlayInner = () => {
     const tournamentId = searchParams.get("tournamentId");
     const {quizId} = useParams();
     const {token} = useAuth();
+    const { t } = useTranslation();
     const {
         quiz,
         setQuiz,
@@ -75,7 +77,7 @@ const QuizPlayInner = () => {
     if (!quiz) {
         return (
             <DashboardLayout>
-                <p>Ładowanie quizu...</p>
+                <p>{t('quizPlay.loading')}</p>
             </DashboardLayout>
         );
     }
@@ -84,8 +86,8 @@ const QuizPlayInner = () => {
         return (
             <DashboardLayout>
                 <div className="form-container">
-                    <h2>Quiz zakończony!</h2>
-                    <p>Twój wynik: {score} / {quiz.questions.length}</p>
+                    <h2>{t('quizPlay.finished')}</h2>
+                    <p>{t('quizPlay.score')}: {score} / {quiz.questions.length}</p>
                 </div>
             </DashboardLayout>
         );
@@ -99,15 +101,15 @@ const QuizPlayInner = () => {
                 <p className="feedback">{feedback ?? "\u00A0"}</p>
                 <div className="quiz-timer">
                     <span className="quiz-timer-icon">⏱️</span>
-                    <span className="quiz-timer-label">Pozostały czas:</span>
+                    <span className="quiz-timer-label">{t('quizPlay.timeLeft')}</span>
                     <span className="quiz-timer-time">
         {Math.floor(timeLeft / 60)}:{String(timeLeft % 60).padStart(2, "0")}
     </span>
                 </div>
 
                 <div className="controls">
-                    <button className="form-button" onClick={submitAnswer}>Zatwierdź odpowiedź</button>
-                    {feedback && <button className="form-button" onClick={nextQuestion}>Dalej</button>}
+                    <button className="form-button" onClick={submitAnswer}>{t('quizPlay.confirm')}</button>
+                    {feedback && <button className="form-button" onClick={nextQuestion}>{t('quizPlay.next')}</button>}
                 </div>
             </div>
         </DashboardLayout>

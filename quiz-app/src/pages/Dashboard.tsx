@@ -1,5 +1,6 @@
 import {DashboardLayout} from "../layouts/DashboardLayout";
 import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../auth/AuthContext";
@@ -15,6 +16,7 @@ interface Quiz {
 
 export const Dashboard = () => {
     const {token} = useAuth();
+    const { t } = useTranslation();
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
@@ -62,7 +64,7 @@ export const Dashboard = () => {
                 headers: {Authorization: `Bearer ${token}`}
             });
             setShowModal(false);
-            alert("Turniej utworzony!");
+            alert(t('dashboard.created'));
         } catch (err) {
             console.error("Błąd tworzenia turnieju:", err);
         }
@@ -71,9 +73,9 @@ export const Dashboard = () => {
 
     return (
         <DashboardLayout>
-            <h1>Moje quizy</h1>
+            <h1>{t('dashboard.title')}</h1>
             {quizzes.length === 0 ? (
-                <p>Brak quizów do rozwiązania.</p>
+                <p>{t('dashboard.noQuizzes')}</p>
             ) : (
                 <ul className="list-reset">
                     {quizzes.map((quiz) => (
@@ -81,14 +83,13 @@ export const Dashboard = () => {
                             <h3>{quiz.title}</h3>
                             <p>{quiz.description}</p>
                             <p>
-                                <strong>Kategoria:</strong> {quiz.category} | <strong>Trudność:</strong> {quiz.difficulty}
+                                <strong>{t('quiz.category')}</strong> {quiz.category} | <strong>{t('quiz.difficulty')}</strong> {quiz.difficulty}
                             </p>
                             <div className="button-column">
-                                <button onClick={() => handleStart(quiz.id)} className="form-button">Rozpocznij</button>
-                                <button onClick={() => handleChallenge(quiz.id)} className="form-button">Rywalizuj
+                                <button onClick={() => handleStart(quiz.id)} className="form-button">{t('dashboard.start')}</button>
+                                <button onClick={() => handleChallenge(quiz.id)} className="form-button">{t('dashboard.challenge')}
                                 </button>
-                                <button onClick={() => openTournamentModal(quiz.id)} className="form-button">Zorganizuj
-                                    Turniej
+                                <button onClick={() => openTournamentModal(quiz.id)} className="form-button">{t('dashboard.organize')}
                                 </button>
                             </div>
                         </li>
@@ -98,14 +99,14 @@ export const Dashboard = () => {
             {showModal && (
                 <div className="modal-overlay">
                     <div className="modal-content">
-                        <h3>Zorganizuj Turniej</h3>
-                        <label>Start:</label>
+                        <h3>{t('dashboard.tournamentTitle')}</h3>
+                        <label>{t('dashboard.startLabel')}</label>
                         <input type="datetime-local" value={startTime} onChange={e => setStartTime(e.target.value)}/>
-                        <label>Koniec:</label>
+                        <label>{t('dashboard.endLabel')}</label>
                         <input type="datetime-local" value={endTime} onChange={e => setEndTime(e.target.value)}/>
                         <div className="modal-actions">
-                            <button className="form-button" onClick={createTournament}>Utwórz</button>
-                            <button className="form-button" onClick={() => setShowModal(false)}>Anuluj</button>
+                            <button className="form-button" onClick={createTournament}>{t('dashboard.create')}</button>
+                            <button className="form-button" onClick={() => setShowModal(false)}>{t('dashboard.cancel')}</button>
                         </div>
                     </div>
                 </div>

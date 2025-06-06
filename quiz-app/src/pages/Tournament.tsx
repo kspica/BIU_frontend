@@ -4,6 +4,7 @@ import axios from "axios";
 import {useAuth} from "../auth/AuthContext";
 import {useNavigate} from "react-router-dom";
 import {API_URL} from "../api/config";
+import {useTranslation} from "react-i18next";
 
 
 interface Tournament {
@@ -17,6 +18,7 @@ interface Tournament {
 export const Tournaments = () => {
     const navigate = useNavigate();
     const {token} = useAuth();
+    const { t } = useTranslation();
     const [tournaments, setTournaments] = useState<Tournament[]>([]);
 
     useEffect(() => {
@@ -43,20 +45,20 @@ export const Tournaments = () => {
 
     return (
         <DashboardLayout>
-            <h2>Aktywne Turnieje</h2>
+            <h2>{t('tournaments.title')}</h2>
             {tournaments.length === 0 ? (
-                <p>Brak aktywnych turniejów.</p>
+                <p>{t('tournaments.none')}</p>
             ) : (
                 <ul className="list-reset">
-                    {tournaments.map(t => (
-                        <li key={t.id} className="list-item-lg">
-                            <h3>{t.quizTitle}</h3>
-                            <p><strong>Od:</strong> {new Date(t.startTime).toLocaleString()}</p>
-                            <p><strong>Do:</strong> {new Date(t.endTime).toLocaleString()}</p>
+                    {tournaments.map(tournament => (
+                        <li key={tournament.id} className="list-item-lg">
+                            <h3>{tournament.quizTitle}</h3>
+                            <p><strong>Od:</strong> {new Date(tournament.startTime).toLocaleString()}</p>
+                            <p><strong>Do:</strong> {new Date(tournament.endTime).toLocaleString()}</p>
                             <div className="button-row">
-                                <button className="form-button" onClick={() => handleJoin(t.quizId, t.id)}>Weź udział
+                                <button className="form-button" onClick={() => handleJoin(tournament.quizId, tournament.id)}>{t('tournaments.join')}
                                 </button>
-                                <button className="form-button" onClick={() => handleLeaderboard(t.id)}>Sprawdź wyniki
+                                <button className="form-button" onClick={() => handleLeaderboard(tournament.id)}>{t('tournaments.results')}
                                 </button>
                             </div>
 

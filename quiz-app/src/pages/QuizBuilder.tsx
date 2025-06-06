@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {DashboardLayout} from "../layouts/DashboardLayout";
 import "../styles/forms.scss";
 import {useQuiz} from "../context/QuizContext";
+import {useTranslation} from "react-i18next";
 
 const MOCK_QUIZ = {
     title: "Testowy quiz z wiedzy ogólnej",
@@ -17,6 +18,7 @@ export const QuizBuilder = () => {
     const {register, handleSubmit, setValue} = useForm();
     const navigate = useNavigate();
     const {quiz, setQuiz} = useQuiz();
+    const { t } = useTranslation();
 
     const loadMockQuiz = () => {
         setQuiz({...quiz, ...MOCK_QUIZ});
@@ -33,25 +35,25 @@ export const QuizBuilder = () => {
     return (
         <DashboardLayout>
             <form className="form" onSubmit={handleSubmit(onSubmit)}>
-                <h2>Stwórz nowy quiz</h2>
-                <input {...register("title")} placeholder="Tytuł" required/>
+                <h2>{t('builder.title')}</h2>
+                <input {...register("title")} placeholder={t('builder.title')} required/>
                 <textarea {...register("description")} placeholder="Opis" required/>
                 <select {...register("category")} required>
-                    <option value="">Wybierz kategorię</option>
+                    <option value="">{t('builder.categoryPlaceholder')}</option>
                     <option value="Informatyka">Informatyka</option>
                     <option value="Matematyka">Matematyka</option>
                 </select>
                 <select {...register("difficulty")} required>
-                    <option value="">Poziom trudności</option>
-                    <option value="Łatwy">Łatwy</option>
-                    <option value="Średni">Średni</option>
-                    <option value="Trudny">Trudny</option>
+                    <option value="">{t('builder.difficultyPlaceholder')}</option>
+                    <option value="Łatwy">{t('builder.difficultyEasy')}</option>
+                    <option value="Średni">{t('builder.difficultyMedium')}</option>
+                    <option value="Trudny">{t('builder.difficultyHard')}</option>
                 </select>
-                <input type="text" {...register("coverImageUrl")} placeholder="URL obrazka"/>
-                <input type="number" {...register("timeLimit")} placeholder="Limit czasowy (min)" required/>
-                <button type="submit">Dalej</button>
+                <input type="text" {...register("coverImageUrl")} placeholder={t('builder.coverUrl')}/>
+                <input type="number" {...register("timeLimit")} placeholder={t('builder.timeLimit')} required/>
+                <button type="submit">{t('builder.next')}</button>
             </form>
-            <button onClick={loadMockQuiz} className="form-button">Załaduj dane testowe</button>
+            <button onClick={loadMockQuiz} className="form-button">{t('builder.mock')}</button>
         </DashboardLayout>
     );
 };
