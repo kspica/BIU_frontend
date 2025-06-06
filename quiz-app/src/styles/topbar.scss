@@ -1,6 +1,8 @@
+@import "./variables";
+
 .topbar {
-  background-color: white;
-  border-bottom: 1px solid #eee;
+  background-color: $bg-color;
+  border-bottom: 1px solid $border-color;
   padding: 1rem 2rem;
   display: flex;
   justify-content: flex-end;

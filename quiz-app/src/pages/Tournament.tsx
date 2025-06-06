@@ -46,24 +46,13 @@ export const Tournaments = () => {
             {tournaments.length === 0 ? (
                 <p>Brak aktywnych turniejów.</p>
             ) : (
-                <ul style={{listStyle: "none", padding: 0}}>
+                <ul className="list-reset">
                     {tournaments.map(t => (
-                        <li key={t.id} style={{
-                            marginBottom: "1rem",
-                            border: "1px solid #ccc",
-                            borderRadius: "6px",
-                            padding: "1rem"
-                        }}>
+                        <li key={t.id} className="list-item-lg">
                             <h3>{t.quizTitle}</h3>
                             <p><strong>Od:</strong> {new Date(t.startTime).toLocaleString()}</p>
                             <p><strong>Do:</strong> {new Date(t.endTime).toLocaleString()}</p>
-                            <div style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                flexDirection: "column",
-                                gap: "1rem",
-                                marginTop: "1rem"
-                            }}>
+                            <div className="button-column" style={{justifyContent: "center", gap: "1rem"}}>
                                 <button className="form-button" onClick={() => handleJoin(t.quizId, t.id)}>Weź udział
                                 </button>
                                 <button className="form-button" onClick={() => handleLeaderboard(t.id)}>Sprawdź wyniki

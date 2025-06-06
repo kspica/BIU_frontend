@@ -63,17 +63,15 @@ export const MyQuizzes = () => {
                 {quizzes.length === 0 ? (
                     <p>Brak zapisanych quizów.</p>
                 ) : (
-                    <ul style={{ listStyleType: "none" }}>
+                    <ul className="list-reset">
                         {quizzes.map((quiz) => (
-                            <li
-                                key={quiz.id}
-                                style={{ marginBottom: "0.5rem", padding: "0.5rem", border: "1px solid #ddd", borderRadius: "4px" }}
-                            >
-                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                    <div style={{ cursor: "pointer" }} onClick={() => handleClick(quiz.id)}>
+                            <li key={quiz.id} className="list-item">
+                                <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                                    <div style={{cursor: "pointer"}} onClick={() => handleClick(quiz.id)}>
                                         <strong>{quiz.title}</strong> — {quiz.category} ({quiz.difficulty})
                                     </div>
-                                    <button className="delete-button" onClick={() => handleDelete(quiz.id)} style={{ marginLeft: "1rem" }}>
+                                    <button className="delete-button" onClick={() => handleDelete(quiz.id)}
+                                            style={{marginLeft: "1rem"}}>
                                         Usuń
                                     </button>
                                 </div>

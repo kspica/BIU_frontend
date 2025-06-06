@@ -74,20 +74,15 @@ export const Dashboard = () => {
             {quizzes.length === 0 ? (
                 <p>Brak quizów do rozwiązania.</p>
             ) : (
-                <ul style={{listStyleType: "none", padding: 0}}>
+                <ul className="list-reset">
                     {quizzes.map((quiz) => (
-                        <li key={quiz.id} style={{
-                            marginBottom: "1rem",
-                            padding: "1rem",
-                            border: "1px solid #ccc",
-                            borderRadius: "6px"
-                        }}>
+                        <li key={quiz.id} className="list-item-lg">
                             <h3>{quiz.title}</h3>
                             <p>{quiz.description}</p>
                             <p>
                                 <strong>Kategoria:</strong> {quiz.category} | <strong>Trudność:</strong> {quiz.difficulty}
                             </p>
-                            <div style={{display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "1rem"}}>
+                            <div className="button-column">
                                 <button onClick={() => handleStart(quiz.id)} className="form-button">Rozpocznij</button>
                                 <button onClick={() => handleChallenge(quiz.id)} className="form-button">Rywalizuj
                                 </button>
@@ -100,23 +95,14 @@ export const Dashboard = () => {
                 </ul>
             )}
             {showModal && (
-                <div style={{
-                    position: "fixed", top: 0, left: 0, width: "100%", height: "100%",
-                    background: "rgba(0,0,0,0.5)", display: "flex", alignItems: "center", justifyContent: "center"
-                }}>
-                    <div style={{background: "#fff", padding: "2rem", borderRadius: "8px", width: "300px"}}>
+                <div className="modal-overlay">
+                    <div className="modal-content">
                         <h3>Zorganizuj Turniej</h3>
                         <label>Start:</label>
                         <input type="datetime-local" value={startTime} onChange={e => setStartTime(e.target.value)}/>
                         <label>Koniec:</label>
                         <input type="datetime-local" value={endTime} onChange={e => setEndTime(e.target.value)}/>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            gap: "0.75rem",
-                            marginTop: "1.5rem"
-                        }}>
+                        <div className="modal-actions">
                             <button className="form-button" onClick={createTournament}>Utwórz</button>
                             <button className="form-button" onClick={() => setShowModal(false)}>Anuluj</button>
                         </div>

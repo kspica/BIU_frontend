@@ -8,7 +8,7 @@ import {ForgotPasswordForm} from "./components/ForgotPasswordForm";
 import {ResetPasswordForm} from "./components/ResetPasswordForm";
 import {Dashboard} from "./pages/Dashboard";
 import {OAuth2Success} from "./pages/OAuth2Success";
-import './styles/forms.scss';
+import './styles/common.scss';
 import {QuizBuilder} from "./pages/QuizBuilder";
 import {QuizProvider} from "./context/QuizContext";
 import {QuestionBuilder} from "./pages/QuestionBuilder";

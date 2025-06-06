@@ -41,33 +41,26 @@ export const QuizLeaderboard = () => {
                 {results.length === 0 ? (
                     <p>Brak wyników dla tego quizu.</p>
                 ) : (
-                    <table style={{
-                        width: "100%",
-                        borderCollapse: "collapse",
-                        marginTop: "1rem",
-                        border: "1px solid #ccc",
-                        borderRadius: "6px",
-                        overflow: "hidden"
-                    }}>
-                        <thead style={{backgroundColor: "#f0f0f0"}}>
+                    <table className="table-layout">
+                        <thead className="table-header">
                         <tr>
-                            <th style={{padding: "0.5rem", border: "1px solid #ccc"}}>Miejsce</th>
-                            <th style={{padding: "0.5rem", border: "1px solid #ccc"}}>Użytkownik</th>
-                            <th style={{padding: "0.5rem", border: "1px solid #ccc"}}>Wynik</th>
-                            <th style={{padding: "0.5rem", border: "1px solid #ccc"}}>Czas</th>
-                            <th style={{padding: "0.5rem", border: "1px solid #ccc"}}>Data</th>
+                            <th className="table-cell">Miejsce</th>
+                            <th className="table-cell">Użytkownik</th>
+                            <th className="table-cell">Wynik</th>
+                            <th className="table-cell">Czas</th>
+                            <th className="table-cell">Data</th>
                         </tr>
                         </thead>
                         <tbody>
                         {results.map((res, i) => (
                             <tr key={res.id}>
-                                <td style={{padding: "0.5rem", border: "1px solid #ccc"}}>{i + 1}</td>
-                                <td style={{padding: "0.5rem", border: "1px solid #ccc"}}>{res.user.username}</td>
-                                <td style={{padding: "0.5rem", border: "1px solid #ccc"}}>{res.score}</td>
-                                <td style={{padding: "0.5rem", border: "1px solid #ccc"}}>
+                                <td className="table-cell">{i + 1}</td>
+                                <td className="table-cell">{res.user.username}</td>
+                                <td className="table-cell">{res.score}</td>
+                                <td className="table-cell">
                                     {Math.floor(res.timeTakenSeconds / 60)}:{String(res.timeTakenSeconds % 60).padStart(2, "0")}
                                 </td>
-                                <td style={{padding: "0.5rem", border: "1px solid #ccc"}}>
+                                <td className="table-cell">
                                     {new Date(res.completedAt).toLocaleString()}
                                 </td>
                             </tr>

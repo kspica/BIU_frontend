@@ -41,19 +41,11 @@ export const Leaderboard = () => {
                 {quizzes.length === 0 ? (
                     <p>Brak dostępnych quizów.</p>
                 ) : (
-                    <ul style={{ listStyleType: "none", padding: 0 }}>
+                    <ul className="list-reset">
                         {quizzes.map((q) => (
-                            <li
-                                key={q.id}
-                                style={{
-                                    marginBottom: "0.5rem",
-                                    padding: "0.5rem",
-                                    border: "1px solid #ddd",
-                                    borderRadius: "4px"
-                                }}
-                            >
+                            <li className="list-item">
                                 <div
-                                    style={{ cursor: "pointer" }}
+                                    style={{cursor: "pointer"}}
                                     onClick={() => navigate(`/leaderboard/${q.id}`)}
                                 >
                                     <strong>{q.title}</strong> — {q.category} ({q.difficulty})

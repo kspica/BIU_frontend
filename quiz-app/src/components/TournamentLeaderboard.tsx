@@ -41,27 +41,20 @@ export const TournamentLeaderboard = () => {
                 ) : entries.length === 0 ? (
                     <p>Brak wyników dla tego turnieju.</p>
                 ) : (
-                    <table style={{
-                        width: "100%",
-                        borderCollapse: "collapse",
-                        marginTop: "1rem",
-                        border: "1px solid #ccc",
-                        borderRadius: "6px",
-                        overflow: "hidden"
-                    }}>
-                        <thead style={{backgroundColor: "#f0f0f0"}}>
+                    <table className="table-layout">
+                        <thead className="table-header">
                         <tr>
-                            <th style={{padding: "0.5rem", border: "1px solid #ccc"}}>Miejsce</th>
-                            <th style={{padding: "0.5rem", border: "1px solid #ccc"}}>Użytkownik</th>
-                            <th style={{padding: "0.5rem", border: "1px solid #ccc"}}>Wynik</th>
+                            <th className="table-cell">Miejsce</th>
+                            <th className="table-cell">Użytkownik</th>
+                            <th className="table-cell">Wynik</th>
                         </tr>
                         </thead>
                         <tbody>
                         {entries.map((entry, i) => (
                             <tr key={i}>
-                                <td style={{padding: "0.5rem", border: "1px solid #ccc"}}>{i + 1}</td>
-                                <td style={{padding: "0.5rem", border: "1px solid #ccc"}}>{entry.username}</td>
-                                <td style={{padding: "0.5rem", border: "1px solid #ccc"}}>{entry.score}</td>
+                                <td className="table-cell">{i + 1}</td>
+                                <td className="table-cell">{entry.username}</td>
+                                <td className="table-cell">{entry.score}</td>
                             </tr>
                         ))}
                         </tbody>

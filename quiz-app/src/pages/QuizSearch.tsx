@@ -76,17 +76,9 @@ export const QuizSearch = () => {
                 {quizzes.length === 0 ? (
                     <p>Brak quizów spełniających kryteria.</p>
                 ) : (
-                    <ul style={{listStyleType: "none", padding: 0}}>
+                    <ul className="list-reset">
                         {quizzes.map((q) => (
-                            <li
-                                key={q.id}
-                                style={{
-                                    marginBottom: "0.5rem",
-                                    padding: "0.5rem",
-                                    border: "1px solid #ddd",
-                                    borderRadius: "4px"
-                                }}
-                            >
+                            <li key={q.id} className="list-item">
                                 <strong>{q.title}</strong> — {q.category} ({q.difficulty}) — {q.timeLimit} min
                             </li>
                         ))}
