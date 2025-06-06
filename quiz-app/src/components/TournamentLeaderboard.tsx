@@ -37,7 +37,7 @@ export const TournamentLeaderboard = () => {
             <div className="form-container">
                 <h2 className="form-title">Wyniki turnieju #{tournamentId}</h2>
                 {error ? (
-                    <p style={{color: "red"}}>{error}</p>
+                    <p className="error">{error}</p>
                 ) : entries.length === 0 ? (
                     <p>Brak wyników dla tego turnieju.</p>
                 ) : (

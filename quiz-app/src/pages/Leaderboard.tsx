@@ -45,7 +45,7 @@ export const Leaderboard = () => {
                         {quizzes.map((q) => (
                             <li className="list-item">
                                 <div
-                                    style={{cursor: "pointer"}}
+                                    className="clickable"
                                     onClick={() => navigate(`/leaderboard/${q.id}`)}
                                 >
                                     <strong>{q.title}</strong> — {q.category} ({q.difficulty})

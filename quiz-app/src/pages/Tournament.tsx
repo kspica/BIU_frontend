@@ -52,7 +52,7 @@ export const Tournaments = () => {
                             <h3>{t.quizTitle}</h3>
                             <p><strong>Od:</strong> {new Date(t.startTime).toLocaleString()}</p>
                             <p><strong>Do:</strong> {new Date(t.endTime).toLocaleString()}</p>
-                            <div className="button-column" style={{justifyContent: "center", gap: "1rem"}}>
+                            <div className="button-row">
                                 <button className="form-button" onClick={() => handleJoin(t.quizId, t.id)}>Weź udział
                                 </button>
                                 <button className="form-button" onClick={() => handleLeaderboard(t.id)}>Sprawdź wyniki

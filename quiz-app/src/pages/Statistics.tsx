@@ -80,7 +80,7 @@ export const Statistics = () => {
                         </div>
 
                         <h3 className="text-lg font-medium mb-2">Podział quizów wg kategorii:</h3>
-                        <div style={{ width: "100%", height: 400 }}>
+                        <div className="chart-container">
                             <ResponsiveContainer>
                                 <PieChart>
                                     <Pie
@@ -91,7 +91,7 @@ export const Statistics = () => {
                                         cy="50%"
                                         outerRadius={130}
                                         cornerRadius={10}
-                                        label={({ name, percent }) =>
+                                        label={({name, percent}) =>
                                             `${name} (${(percent * 100).toFixed(0)}%)`
                                         }
                                     >
@@ -103,9 +103,9 @@ export const Statistics = () => {
                                         ))}
                                     </Pie>
                                     <Tooltip
-                                        contentStyle={{ borderRadius: "8px", boxShadow: "0 2px 10px rgba(0,0,0,0.1)" }}
+                                        contentStyle={{borderRadius: "8px", boxShadow: "0 2px 10px rgba(0,0,0,0.1)"}}
                                     />
-                                    <Legend verticalAlign="bottom" height={36} />
+                                    <Legend verticalAlign="bottom" height={36}/>
                                 </PieChart>
                             </ResponsiveContainer>
                         </div>

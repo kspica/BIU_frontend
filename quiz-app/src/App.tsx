@@ -8,7 +8,6 @@ import {ForgotPasswordForm} from "./components/ForgotPasswordForm";
 import {ResetPasswordForm} from "./components/ResetPasswordForm";
 import {Dashboard} from "./pages/Dashboard";
 import {OAuth2Success} from "./pages/OAuth2Success";
-import './styles/common.scss';
 import {QuizBuilder} from "./pages/QuizBuilder";
 import {QuizProvider} from "./context/QuizContext";
 import {QuestionBuilder} from "./pages/QuestionBuilder";
@@ -23,6 +22,8 @@ import {MultiplayerGame} from "./pages/MultiplayerGame";
 import {Tournaments} from "./pages/Tournament";
 import {TournamentLeaderboard} from "./components/TournamentLeaderboard";
 import {Statistics} from "./pages/Statistics";
+import './styles/common.scss';
+import './styles/extra-styles.scss';
 
 
 function App() {

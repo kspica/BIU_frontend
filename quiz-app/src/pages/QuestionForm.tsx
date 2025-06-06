@@ -52,7 +52,7 @@ export const QuestionForm = ({onSubmit, initialType = "SINGLE"}: Props) => {
                 <>
                     <h4>Opcje:</h4>
                     {fields.map((field, index) => (
-                        <div key={field.id} style={{display: "flex", gap: "0.5rem"}}>
+                        <div key={field.id} className="form-option-row">
                             <input
                                 {...register(`options.${index}.value`, {required: true})}
                                 className="form-input"

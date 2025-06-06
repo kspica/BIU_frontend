@@ -66,12 +66,11 @@ export const MyQuizzes = () => {
                     <ul className="list-reset">
                         {quizzes.map((quiz) => (
                             <li key={quiz.id} className="list-item">
-                                <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-                                    <div style={{cursor: "pointer"}} onClick={() => handleClick(quiz.id)}>
+                                <div className="my-quiz-item">
+                                    <div className="clickable" onClick={() => handleClick(quiz.id)}>
                                         <strong>{quiz.title}</strong> — {quiz.category} ({quiz.difficulty})
                                     </div>
-                                    <button className="delete-button" onClick={() => handleDelete(quiz.id)}
-                                            style={{marginLeft: "1rem"}}>
+                                    <button className="delete-button margin-left-1" onClick={() => handleDelete(quiz.id)}>
                                         Usuń
                                     </button>
                                 </div>

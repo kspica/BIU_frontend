@@ -60,7 +60,7 @@ export const MultiplayerGame = () => {
 
     return (
         <DashboardLayout>
-            <div style={{maxWidth: "800px", margin: "2rem auto", padding: "1rem"}}>
+            <div className="multiplayer-container">
                 {currentIndex >= mockQuestions.length ? (
                     <>
                         <h2>🎉 Wyniki końcowe</h2>
@@ -74,14 +74,9 @@ export const MultiplayerGame = () => {
                 ) : (
                     <>
                         <h2>🧠 Pytanie {currentIndex + 1} z {mockQuestions.length}</h2>
-                        <p style={{fontSize: "1.2rem", margin: "1rem 0"}}><strong>{currentQuestion.text}</strong></p>
+                        <p className="question-text"><strong>{currentQuestion.text}</strong></p>
 
-                        <div style={{
-                            display: "flex",
-                            gap: "2rem",
-                            flexWrap: "wrap",
-                            justifyContent: "center"
-                        }}>
+                        <div className="answers-container">
                             <div>
                                 <h3>Gracz 1</h3>
                                 {currentQuestion.options.map(option => (
@@ -89,8 +84,7 @@ export const MultiplayerGame = () => {
                                         key={option}
                                         disabled={answers["player1"] !== undefined}
                                         onClick={() => handleAnswer("player1", option)}
-                                        className="form-button"
-                                        style={{margin: "0.5rem"}}
+                                        className="form-button margin-button"
                                     >
                                         {option}
                                     </button>
@@ -103,8 +97,7 @@ export const MultiplayerGame = () => {
                                         key={option}
                                         disabled={answers["player2"] !== undefined}
                                         onClick={() => handleAnswer("player2", option)}
-                                        className="form-button"
-                                        style={{margin: "0.5rem"}}
+                                        className="form-button margin-button"
                                     >
                                         {option}
                                     </button>

@@ -105,7 +105,7 @@ export const RegisterForm = () => {
             />
             {formError && <p className="error">{formError}</p>}
             <button type="submit">Zarejestruj się</button>
-            {message && <p style={{ color: "green" }}>{message}</p>}
+            {message && <p className="success">{message}</p>}
         </form>
     );
 };

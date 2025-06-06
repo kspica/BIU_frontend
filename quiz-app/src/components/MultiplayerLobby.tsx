@@ -41,7 +41,7 @@ export const MultiplayerLobby = () => {
 
     return (
         <DashboardLayout>
-            <div style={{padding: "2rem"}}>
+            <div className="lobby-container">
                 <h2>Lobby Rywalizacji</h2>
                 <p><strong>ID pokoju:</strong> {roomId}</p>
                 <p><strong>Quiz ID:</strong> {quizId}</p>

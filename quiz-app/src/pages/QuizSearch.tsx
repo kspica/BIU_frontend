@@ -47,12 +47,7 @@ export const QuizSearch = () => {
         <DashboardLayout>
             <div className="form-container">
                 <h2 className="form-title">Wyszukiwarka quizów</h2>
-                <div style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-                    gap: "1rem",
-                    marginBottom: "1.5rem"
-                }}>
+                <div className="filters-grid">
                     <input type="text" name="title" placeholder="Tytuł" value={filters.title} onChange={handleChange}/>
                     <input type="text" name="category" placeholder="Kategoria" value={filters.category}
                            onChange={handleChange}/>
@@ -65,11 +60,12 @@ export const QuizSearch = () => {
                     <input type="number" name="timeLimit" placeholder="Czas [min]" value={filters.timeLimit}
                            onChange={handleChange}/>
                 </div>
-                <div style={{textAlign: "center", marginBottom: "1.5rem"}}>
+                <div className="centered-section">
                     <button
                         className="form-button"
                         onClick={() => setFilters({title: "", category: "", difficulty: "", timeLimit: ""})}
-                    >Wyczyść filtry</button>
+                    >Wyczyść filtry
+                    </button>
                 </div>
 
 

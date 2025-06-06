@@ -160,12 +160,7 @@ export const QuizDetails = () => {
 
                 <h3>Pytania</h3>
                 {quiz.questions.map((q, index) => (
-                    <div key={index} style={{
-                        marginBottom: "1rem",
-                        padding: "0.5rem",
-                        border: "1px solid #ccc",
-                        borderRadius: "4px"
-                    }}>
+                    <div key={index} className="question-item">
                         <p><strong>{index + 1}. {q.content}</strong></p>
                         {q.options && q.options.length > 0 && (
                             <ul>
