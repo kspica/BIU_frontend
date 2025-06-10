@@ -64,7 +64,15 @@
   },
   "quiz": {
     "category": "Kategoria:",
-    "difficulty": "Trudność:"
+    "difficulty": "Trudność:",
+    "description": "Opis:",
+    "edit": "Edytuj",
+    "save": "Zapisz zmiany",
+    "addQuestion": "Dodaj nowe pytanie",
+    "questions": "Pytania",
+    "delete": "Usuń pytanie",
+    "openAnswer": "Odpowiedź otwarta",
+    "loading": "Ładowanie quizu..."
   },
   "builder": {
     "title": "Stwórz nowy quiz",
@@ -103,7 +111,8 @@
     "title": "Moje quizy",
     "none": "Brak zapisanych quizów.",
     "deleteConfirm": "Czy na pewno chcesz usunąć ten quiz?",
-    "delete": "Usuń"
+    "delete": "Usuń",
+    "back": "Wróć do moich quizów"
   },
   "quizSearch": {
     "title": "Wyszukiwarka quizów",
@@ -111,7 +120,8 @@
     "categoryPlaceholder": "Kategoria",
     "difficulty": "Poziom",
     "clear": "Wyczyść filtry",
-    "none": "Brak quizów spełniających kryteria."
+    "none": "Brak quizów spełniających kryteria.",
+    "back": "Wróć do wyszukiwania"
   },
   "leaderboard": {
     "title": "Najlepsze wyniki – wybierz quiz",

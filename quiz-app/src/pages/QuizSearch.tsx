@@ -1,4 +1,5 @@
 import {useCallback, useEffect, useState} from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {useAuth} from "../auth/AuthContext";
 import {DashboardLayout} from "../layouts/DashboardLayout";
@@ -16,6 +17,7 @@ interface Quiz {
 
 export const QuizSearch = () => {
     const {token} = useAuth();
+    const navigate = useNavigate();
     const { t } = useTranslation();
     const [filters, setFilters] = useState({ title: "", category: "", difficulty: "", timeLimit: "" });
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
@@ -77,7 +79,7 @@ export const QuizSearch = () => {
                 ) : (
                     <ul className="list-reset">
                         {quizzes.map((q) => (
-                            <li key={q.id} className="list-item">
+                            <li key={q.id} className="list-item clickable" onClick={() => navigate(`/quiz-search/${q.id}`)}>
                                 <strong>{q.title}</strong> — {q.category} ({q.difficulty}) — {q.timeLimit} min
                             </li>
                         ))}

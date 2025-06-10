@@ -73,24 +73,63 @@ function App() {
                             <PrivateRoute>
                                 <MultiplayerLobby/>
                             </PrivateRoute>
-                        }/>
+                        }
+                        />
                         <Route path="/multiplayer/play/:quizId" element={
                             <PrivateRoute>
                                 <MultiplayerGame/>
                             </PrivateRoute>
-                        }/>
+                        }
+                        />
                         <Route path="/tournaments" element={
                             <PrivateRoute>
                                 <Tournaments/>
                             </PrivateRoute>
                         }/>
+                        <Route path="/tournament/:tournamentId/leaderboard" element={
+                            <PrivateRoute>
+                                <TournamentLeaderboard/>
+                            </PrivateRoute>
+                        }
+                        />
+                        <Route path="/play/:quizId" element={
+                            <PrivateRoute>
+                                <QuizPlay/>
+                            </PrivateRoute>
+                        }
+                        />
+                        <Route path="/leaderboard" element={
+                            <PrivateRoute>
+                                <Leaderboard/>
+                            </PrivateRoute>
+                        }
+                        />
+                        <Route path="/leaderboard/:quizId" element={
+                            <PrivateRoute>
+                                <QuizLeaderboard/>
+                            </PrivateRoute>
+                        }
+                        />
+                        <Route path="/quiz-search" element={
+                            <PrivateRoute>
+                                <QuizSearch/>
+                            </PrivateRoute>
+                        }
+                        />
+                        <Route path="/statistics" element={
+                            <PrivateRoute>
+                                <Statistics/>
+                            </PrivateRoute>
+                        }/>
+                        <Route
+                            path="/quiz-search/:quizId"
+                            element={
+                                <PrivateRoute>
+                                    <QuizDetails readOnly={true} />
+                                </PrivateRoute>
+                            }
+                        />
 
-                        <Route path="/tournament/:tournamentId/leaderboard" element={<TournamentLeaderboard/>}/>
-                        <Route path="/play/:quizId" element={<QuizPlay/>}/>
-                        <Route path="/leaderboard" element={<Leaderboard/>}/>
-                        <Route path="/leaderboard/:quizId" element={<QuizLeaderboard/>}/>
-                        <Route path="/quiz-search" element={<QuizSearch/>}/>
-                        <Route path="/statistics" element={<Statistics/>}/>
                     </Routes>
                 </Router>
             </QuizProvider>

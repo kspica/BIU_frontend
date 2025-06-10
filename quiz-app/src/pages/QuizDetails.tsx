@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useAuth} from "../auth/AuthContext";
 import {DashboardLayout} from "../layouts/DashboardLayout";
 import axios from "axios";
 import {QuestionForm, QuestionFormData} from "./QuestionForm";
 import {API_URL} from "../api/config";
+import {useTranslation} from "react-i18next";
 
 interface Question {
     id?: number;
@@ -23,8 +24,14 @@ interface Quiz {
     questions: Question[];
 }
 
-export const QuizDetails = () => {
+interface QuizDetailsProps {
+    readOnly?: boolean;
+}
+
+export const QuizDetails = ({readOnly = false}: QuizDetailsProps) => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const { t } = useTranslation();
     const {quizId} = useParams();
     const {token} = useAuth();
     const [quiz, setQuiz] = useState<Quiz | null>(null);
@@ -32,6 +39,7 @@ export const QuizDetails = () => {
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
     const [difficulty, setDifficulty] = useState("");
+    const isFromSearch = location.pathname.startsWith("/quiz-search/");
 
     useEffect(() => {
         const fetchQuiz = async () => {
@@ -113,7 +121,7 @@ export const QuizDetails = () => {
     if (!quiz) {
         return (
             <DashboardLayout>
-                <div className="form-container"><p>Ładowanie quizu...</p></div>
+                <div className="form-container"><p>{t('quiz.loading')}</p></div>
             </DashboardLayout>
         );
     }
@@ -122,63 +130,65 @@ export const QuizDetails = () => {
         <DashboardLayout>
             <div className="form-container">
                 <h2 className="form-title">{quiz.title}</h2>
-
-                {isEditing ? (
+                {readOnly ? (
                     <>
-                        <label>
-                            Opis: {" "}
-                            <textarea value={description} onChange={(e) => setDescription(e.target.value)}
-                                      className="form-input"/>
+                        <p><strong>{t('quiz.category')}</strong> {quiz.category}</p>
+                        <p><strong>{t('quiz.difficulty')}</strong> {quiz.difficulty}</p>
+                        <p><strong>{t('quiz.description')}</strong> {quiz.description}</p>
+                    </>
+                ) : isEditing ? (
+                    <>
+                        <label>{t('quiz.description')}:
+                            <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="form-input"/>
                         </label>
-                        <label>
-                            Kategoria: {" "}
-                            <input value={category} onChange={(e) => setCategory(e.target.value)}
-                                   className="form-input"/>
+                        <label>{t('quiz.category')}:
+                            <input value={category} onChange={(e) => setCategory(e.target.value)} className="form-input"/>
                         </label>
-                        <label>
-                            Poziom trudności: {" "}
-                            <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}
-                                    className="form-input">
-                                <option value="">Wybierz</option>
-                                <option value="Łatwy">Łatwy</option>
-                                <option value="Średni">Średni</option>
-                                <option value="Trudny">Trudny</option>
+                        <label>{t('quiz.difficulty')}:
+                            <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)} className="form-input">
+                                <option value="">{t('builder.difficultyPlaceholder')}</option>
+                                <option value="Łatwy">{t('builder.difficultyEasy')}</option>
+                                <option value="Średni">{t('builder.difficultyMedium')}</option>
+                                <option value="Trudny">{t('builder.difficultyHard')}</option>
                             </select>
                         </label>
-                        <button onClick={handleSave} className="form-button">Zapisz zmiany</button>
-
-                        <h3>Dodaj nowe pytanie</h3>
+                        <button onClick={handleSave} className="form-button">{t('quiz.save')}</button>
+                        <h3>{t('quiz.addQuestion')}</h3>
                         <QuestionForm onSubmit={handleAddQuestion}/>
                     </>
                 ) : (
                     <>
-                        <p><strong>Kategoria:</strong> {quiz.category}</p>
-                        <p><strong>Poziom trudności:</strong> {quiz.difficulty}</p>
-                        <p><strong>Opis:</strong> {quiz.description}</p>
-                        <button onClick={() => setIsEditing(true)} className="form-button">Edytuj</button>
+                        <p><strong>{t('quiz.category')}</strong> {quiz.category}</p>
+                        <p><strong>{t('quiz.difficulty')}</strong> {quiz.difficulty}</p>
+                        <p><strong>{t('quiz.description')}</strong> {quiz.description}</p>
+                        <button onClick={() => setIsEditing(true)} className="form-button">{t('quiz.edit')}</button>
                     </>
                 )}
 
-                <h3>Pytania</h3>
+                <h3>{t('quiz.questions')}</h3>
                 {quiz.questions.map((q, index) => (
                     <div key={index} className="question-item">
                         <p><strong>{index + 1}. {q.content}</strong></p>
-                        {q.options && q.options.length > 0 && (
+                        {q.options?.length > 0 ? (
                             <ul>
                                 {q.options.map((opt, i) => (
                                     <li key={i}>
-                                        {opt} {q.correctAnswers.includes(opt) ? "(✅ poprawna)" : ""}
+                                        {opt} {q.correctAnswers.includes(opt) ? "(✅)" : ""}
                                     </li>
                                 ))}
                             </ul>
+                        ) : (
+                            q.type === "OPEN" && <p><em>{t('quiz.openAnswer')}</em></p>
                         )}
-                        {q.type === "OPEN" && <p><em>Odpowiedź otwarta</em></p>}
-                        <button onClick={() => handleDeleteQuestion(q.id!)} className="delete-button">Usuń pytanie
-                        </button>
+                        {!readOnly && (
+                            <button onClick={() => handleDeleteQuestion(q.id!)} className="delete-button">{t('quiz.delete')}</button>
+                        )}
                     </div>
                 ))}
             </div>
-            <button className="form-button" onClick={() => navigate("/my-quizzes")}>← Wróć do moich quizów</button>
+            <button className="form-button" onClick={() => navigate(isFromSearch ? "/quiz-search" : "/my-quizzes")}>
+                ← {isFromSearch ? t('quizSearch.back') : t('myquizzes.back')}
+            </button>
         </DashboardLayout>
     );
 };

@@ -64,7 +64,15 @@
   },
   "quiz": {
     "category": "Category:",
-    "difficulty": "Difficulty:"
+    "difficulty": "Difficulty:",
+    "description": "Description:",
+    "edit": "Edit",
+    "save": "Save changes",
+    "addQuestion": "Add new question",
+    "questions": "Questions",
+    "delete": "Delete question",
+    "openAnswer": "Open answer",
+    "loading": "Loading quiz..."
   },
   "builder": {
     "title": "Create new quiz",
@@ -103,7 +111,8 @@
     "title": "My quizzes",
     "none": "No saved quizzes.",
     "deleteConfirm": "Are you sure you want to delete this quiz?",
-    "delete": "Delete"
+    "delete": "Delete",
+    "back": "Back to my quizzes"
   },
   "quizSearch": {
     "title": "Quiz search",
@@ -111,7 +120,8 @@
     "categoryPlaceholder": "Category",
     "difficulty": "Level",
     "clear": "Clear filters",
-    "none": "No quizzes match."
+    "none": "No quizzes match.",
+    "back": "Back to search"
   },
   "leaderboard": {
     "title": "Best results – choose quiz",

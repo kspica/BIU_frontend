@@ -55,5 +55,4 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     );
 };
 
-// Hook
 export const useAuth = () => useContext(AuthContext);
