@@ -1,10 +1,9 @@
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import axios from "axios";
 import {useAuth} from "../auth/AuthContext";
 import {DashboardLayout} from "../layouts/DashboardLayout";
-import {API_URL} from "../api/config";
 import {useTranslation} from "react-i18next";
+import api from "../api/axiosInterceptor";
 
 interface QuizResult {
     id: number;
@@ -17,7 +16,7 @@ interface QuizResult {
 export const QuizLeaderboard = () => {
     const {quizId} = useParams();
     const {token} = useAuth();
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [results, setResults] = useState<QuizResult[]>([]);
 
     useEffect(() => {
@@ -25,9 +24,7 @@ export const QuizLeaderboard = () => {
 
         const fetch = async () => {
             try {
-                const res = await axios.get(`${API_URL}/results/top10/${quizId}`, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
+                const res = await api.get(`/results/top10/${quizId}`);
                 setResults(res.data);
             } catch (e) {
                 console.error("Błąd pobierania wyników:", e);

@@ -1,18 +1,10 @@
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import axios from "axios";
-import { useAuth } from "../auth/AuthContext";
-import { DashboardLayout } from "../layouts/DashboardLayout";
-import {
-    PieChart,
-    Pie,
-    Cell,
-    Tooltip,
-    Legend,
-    ResponsiveContainer
-} from "recharts";
-import { motion } from "framer-motion";
-import {API_URL} from "../api/config";
+import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
+import {useAuth} from "../auth/AuthContext";
+import {DashboardLayout} from "../layouts/DashboardLayout";
+import {Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip} from "recharts";
+import {motion} from "framer-motion";
+import api from "../api/axiosInterceptor";
 
 interface RecommendedQuiz {
     id: number;
@@ -47,9 +39,7 @@ export const Statistics = () => {
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const res = await axios.get(`${API_URL}/stats/summary`, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
+                const res = await api.get("/stats/summary");
                 setStats(res.data);
             } catch (err) {
                 console.error("Błąd pobierania statystyk:", err);

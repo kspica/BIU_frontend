@@ -6,6 +6,7 @@ import {DashboardLayout} from "../layouts/DashboardLayout";
 import "../styles/forms.scss";
 import {API_URL} from "../api/config";
 import {useTranslation} from "react-i18next";
+import api from "../api/axiosInterceptor";
 
 interface Quiz {
     id: number;
@@ -28,14 +29,13 @@ export const QuizSearch = () => {
 
     const fetchQuizzes = useCallback(async () => {
         try {
-            const res = await axios.get(`${API_URL}/quizzes/search`, {
-                headers: { Authorization: `Bearer ${token}` },
+            const res = await api.get("/quizzes/search", {
                 params: {
                     title: filters.title || undefined,
                     category: filters.category || undefined,
                     difficulty: filters.difficulty || undefined,
-                    timeLimit: filters.timeLimit || undefined
-                }
+                    timeLimit: filters.timeLimit || undefined,
+                },
             });
             setQuizzes(res.data);
         } catch (err) {

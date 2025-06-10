@@ -1,14 +1,13 @@
 import {useEffect} from "react";
 import {useParams, useSearchParams} from "react-router-dom";
-import axios from "axios";
 import {DashboardLayout} from "../layouts/DashboardLayout";
 import {QuizPlayProvider, useQuizPlay} from "../context/QuizPlayContext";
 import {QuestionDisplay} from "../components/QuestionDisplay";
 import {QuizProgress} from "../components/QuizProgress";
 import {useAuth} from "../auth/AuthContext";
 import "../styles/question-builder.scss";
-import {API_URL} from "../api/config";
 import {useTranslation} from "react-i18next";
+import api from "../api/axiosInterceptor";
 
 
 const QuizPlayInner = () => {
@@ -16,7 +15,7 @@ const QuizPlayInner = () => {
     const tournamentId = searchParams.get("tournamentId");
     const {quizId} = useParams();
     const {token} = useAuth();
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const {
         quiz,
         setQuiz,
@@ -35,11 +34,7 @@ const QuizPlayInner = () => {
 
         const fetchQuiz = async () => {
             try {
-                const res = await axios.get(`${API_URL}/quizzes/${quizId}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
+                const res = await api.get(`/quizzes/${quizId}`);
                 setQuiz(res.data);
             } catch (err) {
                 console.error("Błąd pobierania quizu:", err);
@@ -55,15 +50,11 @@ const QuizPlayInner = () => {
 
         const submitResult = async () => {
             try {
-                await axios.post(`${API_URL}/results`, {
+                await api.post("/results", {
                     quizId: quiz.id,
                     score,
                     timeTakenSeconds: quiz.timeLimit * 60 - timeLeft,
                     tournamentId: tournamentId ? parseInt(tournamentId) : null
-                }, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
                 });
                 console.log("✅ Wynik quizu został zapisany");
             } catch (error) {

@@ -2,10 +2,9 @@ import React, {useEffect, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useAuth} from "../auth/AuthContext";
 import {DashboardLayout} from "../layouts/DashboardLayout";
-import axios from "axios";
 import {QuestionForm, QuestionFormData} from "./QuestionForm";
-import {API_URL} from "../api/config";
 import {useTranslation} from "react-i18next";
+import api from "../api/axiosInterceptor";
 
 interface Question {
     id?: number;
@@ -31,7 +30,7 @@ interface QuizDetailsProps {
 export const QuizDetails = ({readOnly = false}: QuizDetailsProps) => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const {quizId} = useParams();
     const {token} = useAuth();
     const [quiz, setQuiz] = useState<Quiz | null>(null);
@@ -44,11 +43,7 @@ export const QuizDetails = ({readOnly = false}: QuizDetailsProps) => {
     useEffect(() => {
         const fetchQuiz = async () => {
             try {
-                const res = await axios.get(`${API_URL}/quizzes/${quizId}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
+                const res = await api.get(`/quizzes/${quizId}`);
                 setQuiz(res.data);
                 setDescription(res.data.description);
                 setCategory(res.data.category);
@@ -64,9 +59,7 @@ export const QuizDetails = ({readOnly = false}: QuizDetailsProps) => {
     const handleSave = async () => {
         try {
             const updated = {...quiz, description, category, difficulty};
-            await axios.put(`${API_URL}/quizzes/${quizId}`, updated, {
-                headers: {Authorization: `Bearer ${token}`}
-            });
+            await api.put(`/quizzes/${quizId}`, updated);
             setQuiz(updated as Quiz);
             setIsEditing(false);
         } catch (e) {
@@ -82,9 +75,7 @@ export const QuizDetails = ({readOnly = false}: QuizDetailsProps) => {
             questions: quiz.questions.filter((q) => q.id !== questionId),
         };
         try {
-            await axios.put(`${API_URL}/quizzes/${quiz.id}`, updated, {
-                headers: {Authorization: `Bearer ${token}`}
-            });
+            await api.put(`/quizzes/${quiz.id}`, updated);
             setQuiz(updated);
         } catch (e) {
             alert("Błąd podczas usuwania pytania");
@@ -108,9 +99,7 @@ export const QuizDetails = ({readOnly = false}: QuizDetailsProps) => {
         };
 
         try {
-            await axios.put(`${API_URL}/quizzes/${quiz.id}`, updated, {
-                headers: {Authorization: `Bearer ${token}`},
-            });
+            await api.put(`/quizzes/${quiz.id}`, updated);
             setQuiz(updated);
         } catch (e) {
             alert("Błąd podczas dodawania pytania");
@@ -139,13 +128,16 @@ export const QuizDetails = ({readOnly = false}: QuizDetailsProps) => {
                 ) : isEditing ? (
                     <>
                         <label>{t('quiz.description')}:
-                            <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="form-input"/>
+                            <textarea value={description} onChange={(e) => setDescription(e.target.value)}
+                                      className="form-input"/>
                         </label>
                         <label>{t('quiz.category')}:
-                            <input value={category} onChange={(e) => setCategory(e.target.value)} className="form-input"/>
+                            <input value={category} onChange={(e) => setCategory(e.target.value)}
+                                   className="form-input"/>
                         </label>
                         <label>{t('quiz.difficulty')}:
-                            <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)} className="form-input">
+                            <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}
+                                    className="form-input">
                                 <option value="">{t('builder.difficultyPlaceholder')}</option>
                                 <option value="Łatwy">{t('builder.difficultyEasy')}</option>
                                 <option value="Średni">{t('builder.difficultyMedium')}</option>
@@ -181,7 +173,8 @@ export const QuizDetails = ({readOnly = false}: QuizDetailsProps) => {
                             q.type === "OPEN" && <p><em>{t('quiz.openAnswer')}</em></p>
                         )}
                         {!readOnly && (
-                            <button onClick={() => handleDeleteQuestion(q.id!)} className="delete-button">{t('quiz.delete')}</button>
+                            <button onClick={() => handleDeleteQuestion(q.id!)}
+                                    className="delete-button">{t('quiz.delete')}</button>
                         )}
                     </div>
                 ))}

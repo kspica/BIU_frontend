@@ -5,6 +5,7 @@ import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../auth/AuthContext";
 import { API_URL } from "../api/config";
+import api from "../api/axiosInterceptor";
 
 interface Quiz {
     id: number;
@@ -28,9 +29,7 @@ export const Dashboard = () => {
     useEffect(() => {
         const fetchQuizzes = async () => {
             try {
-                const res = await axios.get(`${API_URL}/quizzes/user`, {
-                    headers: {Authorization: `Bearer ${token}`}
-                });
+                const res = await api.get("/quizzes/user");
                 setQuizzes(res.data);
             } catch (err) {
                 console.error("Błąd pobierania quizów:", err);
@@ -52,16 +51,14 @@ export const Dashboard = () => {
         setSelectedQuizId(quizId);
         setShowModal(true);
     };
-
+    
     const createTournament = async () => {
         if (!selectedQuizId || !startTime || !endTime) return;
         try {
-            await axios.post(`${API_URL}/tournaments`, {
+            await api.post("/tournaments", {
                 quizId: selectedQuizId,
                 startTime,
                 endTime
-            }, {
-                headers: {Authorization: `Bearer ${token}`}
             });
             setShowModal(false);
             alert(t('dashboard.created'));
@@ -69,7 +66,6 @@ export const Dashboard = () => {
             console.error("Błąd tworzenia turnieju:", err);
         }
     };
-
 
     return (
         <DashboardLayout>

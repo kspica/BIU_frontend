@@ -1,10 +1,9 @@
-import { useEffect, useState, useCallback } from "react";
-import { useAuth } from "../auth/AuthContext";
-import { DashboardLayout } from "../layouts/DashboardLayout";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import {API_URL} from "../api/config";
-import { useTranslation } from "react-i18next";
+import {useCallback, useEffect, useState} from "react";
+import {useAuth} from "../auth/AuthContext";
+import {DashboardLayout} from "../layouts/DashboardLayout";
+import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
+import api from "../api/axiosInterceptor";
 
 interface Quiz {
     id: number;
@@ -15,16 +14,14 @@ interface Quiz {
 }
 
 export const MyQuizzes = () => {
-    const { token } = useAuth();
-    const { t } = useTranslation();
+    const {token} = useAuth();
+    const {t} = useTranslation();
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
     const navigate = useNavigate();
 
     const fetchQuizzes = useCallback(async () => {
         try {
-            const res = await axios.get(`${API_URL}/quizzes/user`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const res = await api.get("/quizzes/user");
             if (Array.isArray(res.data)) {
                 setQuizzes(res.data);
             } else {
@@ -47,11 +44,7 @@ export const MyQuizzes = () => {
     const handleDelete = async (quizId: number) => {
         if (!window.confirm(t('myquizzes.deleteConfirm'))) return;
         try {
-            await axios.delete(`${API_URL}/quizzes/${quizId}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
+            await api.delete(`/quizzes/${quizId}`);
             setQuizzes(prev => prev.filter(q => q.id !== quizId));
         } catch (error) {
             console.error("Błąd podczas usuwania quizu:", error);
@@ -73,7 +66,8 @@ export const MyQuizzes = () => {
                                     <div className="clickable" onClick={() => handleClick(quiz.id)}>
                                         <strong>{quiz.title}</strong> — {quiz.category} ({quiz.difficulty})
                                     </div>
-                                    <button className="delete-button margin-left-1" onClick={() => handleDelete(quiz.id)}>
+                                    <button className="delete-button margin-left-1"
+                                            onClick={() => handleDelete(quiz.id)}>
                                         {t('myquizzes.delete')}
                                     </button>
                                 </div>

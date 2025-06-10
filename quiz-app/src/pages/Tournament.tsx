@@ -1,10 +1,9 @@
 import {useEffect, useState} from "react";
 import {DashboardLayout} from "../layouts/DashboardLayout";
-import axios from "axios";
 import {useAuth} from "../auth/AuthContext";
 import {useNavigate} from "react-router-dom";
-import {API_URL} from "../api/config";
 import {useTranslation} from "react-i18next";
+import api from "../api/axiosInterceptor";
 
 
 interface Tournament {
@@ -18,15 +17,13 @@ interface Tournament {
 export const Tournaments = () => {
     const navigate = useNavigate();
     const {token} = useAuth();
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [tournaments, setTournaments] = useState<Tournament[]>([]);
 
     useEffect(() => {
         const fetchTournaments = async () => {
             try {
-                const res = await axios.get(`${API_URL}/tournaments/active`, {
-                    headers: {Authorization: `Bearer ${token}`}
-                });
+                const res = await api.get("/tournaments/active");
                 setTournaments(res.data);
             } catch (err) {
                 console.error("Błąd ładowania turniejów:", err);
@@ -56,9 +53,11 @@ export const Tournaments = () => {
                             <p><strong>Od:</strong> {new Date(tournament.startTime).toLocaleString()}</p>
                             <p><strong>Do:</strong> {new Date(tournament.endTime).toLocaleString()}</p>
                             <div className="button-row">
-                                <button className="form-button" onClick={() => handleJoin(tournament.quizId, tournament.id)}>{t('tournaments.join')}
+                                <button className="form-button"
+                                        onClick={() => handleJoin(tournament.quizId, tournament.id)}>{t('tournaments.join')}
                                 </button>
-                                <button className="form-button" onClick={() => handleLeaderboard(tournament.id)}>{t('tournaments.results')}
+                                <button className="form-button"
+                                        onClick={() => handleLeaderboard(tournament.id)}>{t('tournaments.results')}
                                 </button>
                             </div>
 

@@ -12,9 +12,12 @@ export const LoginForm = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-
+//funckaj asynchroniczna async czeka na odpowiedz tam gdzie ma await
+//React.FormEvent	Typ zdarzenia React dla onSubmit, onInput, onChange itd.
+//Zastosowanie	Zapewnia bezpieczeństwo typów w TypeScript przy obsłudze formularzy
+//Przykład	const handle = (e: React.FormEvent) => { e.preventDefault(); }
     const handleLogin = async (e: React.FormEvent) => {
-        e.preventDefault();
+        e.preventDefault(); //zapobiega przeładowaniu strony po kliknięciu przycisku submit
         try {
             const token = await loginService(username, password);
             login(token);
