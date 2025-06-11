@@ -1,10 +1,8 @@
 import {useCallback, useEffect, useState} from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import {useNavigate} from "react-router-dom";
 import {useAuth} from "../auth/AuthContext";
 import {DashboardLayout} from "../layouts/DashboardLayout";
 import "../styles/forms.scss";
-import {API_URL} from "../api/config";
 import {useTranslation} from "react-i18next";
 import api from "../api/axiosInterceptor";
 
@@ -19,12 +17,12 @@ interface Quiz {
 export const QuizSearch = () => {
     const {token} = useAuth();
     const navigate = useNavigate();
-    const { t } = useTranslation();
-    const [filters, setFilters] = useState({ title: "", category: "", difficulty: "", timeLimit: "" });
+    const {t} = useTranslation();
+    const [filters, setFilters] = useState({title: "", category: "", difficulty: "", timeLimit: ""});
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        setFilters({ ...filters, [e.target.name]: e.target.value });
+        setFilters({...filters, [e.target.name]: e.target.value});
     };
 
     const fetchQuizzes = useCallback(async () => {
@@ -41,7 +39,7 @@ export const QuizSearch = () => {
         } catch (err) {
             console.error("Błąd pobierania quizów:", err);
         }
-    }, [token, filters]);
+    }, [filters]);
 
     useEffect(() => {
         if (token) fetchQuizzes();
@@ -53,8 +51,10 @@ export const QuizSearch = () => {
             <div className="form-container">
                 <h2 className="form-title">{t('quizSearch.title')}</h2>
                 <div className="filters-grid">
-                    <input type="text" name="title" placeholder={t('quizSearch.titlePlaceholder')} value={filters.title} onChange={handleChange}/>
-                    <input type="text" name="category" placeholder={t('quizSearch.categoryPlaceholder')} value={filters.category}
+                    <input type="text" name="title" placeholder={t('quizSearch.titlePlaceholder')} value={filters.title}
+                           onChange={handleChange}/>
+                    <input type="text" name="category" placeholder={t('quizSearch.categoryPlaceholder')}
+                           value={filters.category}
                            onChange={handleChange}/>
                     <select name="difficulty" value={filters.difficulty} onChange={handleChange}>
                         <option value="">{t('quizSearch.difficulty')}</option>
@@ -79,7 +79,8 @@ export const QuizSearch = () => {
                 ) : (
                     <ul className="list-reset">
                         {quizzes.map((q) => (
-                            <li key={q.id} className="list-item clickable" onClick={() => navigate(`/quiz-search/${q.id}`)}>
+                            <li key={q.id} className="list-item clickable"
+                                onClick={() => navigate(`/quiz-search/${q.id}`)}>
                                 <strong>{q.title}</strong> — {q.category} ({q.difficulty}) — {q.timeLimit} min
                             </li>
                         ))}

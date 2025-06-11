@@ -1,10 +1,8 @@
 import {DashboardLayout} from "../layouts/DashboardLayout";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../auth/AuthContext";
-import { API_URL } from "../api/config";
 import api from "../api/axiosInterceptor";
 
 interface Quiz {
@@ -17,7 +15,7 @@ interface Quiz {
 
 export const Dashboard = () => {
     const {token} = useAuth();
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
@@ -51,7 +49,7 @@ export const Dashboard = () => {
         setSelectedQuizId(quizId);
         setShowModal(true);
     };
-    
+
     const createTournament = async () => {
         if (!selectedQuizId || !startTime || !endTime) return;
         try {
@@ -82,10 +80,13 @@ export const Dashboard = () => {
                                 <strong>{t('quiz.category')}</strong> {quiz.category} | <strong>{t('quiz.difficulty')}</strong> {quiz.difficulty}
                             </p>
                             <div className="button-column">
-                                <button onClick={() => handleStart(quiz.id)} className="form-button">{t('dashboard.start')}</button>
-                                <button onClick={() => handleChallenge(quiz.id)} className="form-button">{t('dashboard.challenge')}
+                                <button onClick={() => handleStart(quiz.id)}
+                                        className="form-button">{t('dashboard.start')}</button>
+                                <button onClick={() => handleChallenge(quiz.id)}
+                                        className="form-button">{t('dashboard.challenge')}
                                 </button>
-                                <button onClick={() => openTournamentModal(quiz.id)} className="form-button">{t('dashboard.organize')}
+                                <button onClick={() => openTournamentModal(quiz.id)}
+                                        className="form-button">{t('dashboard.organize')}
                                 </button>
                             </div>
                         </li>
@@ -102,7 +103,8 @@ export const Dashboard = () => {
                         <input type="datetime-local" value={endTime} onChange={e => setEndTime(e.target.value)}/>
                         <div className="modal-actions">
                             <button className="form-button" onClick={createTournament}>{t('dashboard.create')}</button>
-                            <button className="form-button" onClick={() => setShowModal(false)}>{t('dashboard.cancel')}</button>
+                            <button className="form-button"
+                                    onClick={() => setShowModal(false)}>{t('dashboard.cancel')}</button>
                         </div>
                     </div>
                 </div>

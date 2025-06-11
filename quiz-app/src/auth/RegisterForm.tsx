@@ -2,6 +2,7 @@ import {useState, useEffect} from "react";
 import {useTranslation} from "react-i18next";
 import axios from "axios";
 import { API_URL } from "../api/config";
+import api from "../api/axiosInterceptor";
 
 export const RegisterForm = () => {
     const { t } = useTranslation();
@@ -18,15 +19,15 @@ export const RegisterForm = () => {
     useEffect(() => {
         const checkUsername = setTimeout(() => {
             if (username.length >= 3) {
-                axios
-                    .get(`${API_URL}/auth/check-username?username=${username}`)
+                api
+                    .get(`/auth/check-username?username=${username}`)
                     .then(() => setUsernameError(""))
                     .catch(() => setUsernameError(t('register.usernameTaken')));
             }
         }, 500);
 
         return () => clearTimeout(checkUsername);
-    }, [username]);
+    }, [username, t]);
 
     useEffect(() => {
         const checkEmail = setTimeout(() => {
@@ -39,7 +40,7 @@ export const RegisterForm = () => {
         }, 500);
 
         return () => clearTimeout(checkEmail);
-    }, [email]);
+    }, [email, t]);
 
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -66,7 +67,7 @@ export const RegisterForm = () => {
         }
 
         try {
-            await axios.post(`${API_URL}/auth/register`, {
+            await api.post("/auth/register", {
                 username,
                 email,
                 password,

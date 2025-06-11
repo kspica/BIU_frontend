@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useState} from "react";
-import {useAuth} from "../auth/AuthContext";
 import {DashboardLayout} from "../layouts/DashboardLayout";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
@@ -14,7 +13,6 @@ interface Quiz {
 }
 
 export const MyQuizzes = () => {
-    const {token} = useAuth();
     const {t} = useTranslation();
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
     const navigate = useNavigate();
@@ -31,7 +29,7 @@ export const MyQuizzes = () => {
         } catch (error) {
             console.error("Błąd podczas pobierania quizów", error);
         }
-    }, [token]);
+    }, []);
 
     useEffect(() => {
         fetchQuizzes();

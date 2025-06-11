@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
 
-// Rozszerzony typ kontekstu
 interface AuthContextType {
     token: string | null;
     user: string | null;
@@ -9,7 +8,6 @@ interface AuthContextType {
     isAuthenticated: boolean;
 }
 
-// Domyślny kontekst
 const AuthContext = createContext<AuthContextType>({
     token: null,
     user: null,
@@ -18,7 +16,7 @@ const AuthContext = createContext<AuthContextType>({
     isAuthenticated: false,
 });
 
-// Provider
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [token, setToken] = useState<string | null>(() => localStorage.getItem("token"));
     const [user, setUser] = useState<string | null>(() => localStorage.getItem("username"));

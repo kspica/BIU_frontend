@@ -1,18 +1,19 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import axios from "axios";
-import { API_URL } from "../api/config";
+import {useState} from "react";
+import {useTranslation} from "react-i18next";
+import api from "../api/axiosInterceptor";
 
 export const ForgotPasswordForm = () => {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [email, setEmail] = useState("");
     const [info, setInfo] = useState("");
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await axios.post(`${API_URL}/auth/forgot-password`, email, {
-                headers: { "Content-Type": "text/plain" },
+            await api.post("/auth/forgot-password", email, {
+                headers: {
+                    "Content-Type": "text/plain",
+                },
             });
             setInfo(t('forgot.success'));
         } catch {

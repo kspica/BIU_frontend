@@ -1,23 +1,20 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useAuth } from "../auth/AuthContext";
-import { login as loginService } from "../api/authService";
-import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "../api/config";
+import {useState} from "react";
+import {useTranslation} from "react-i18next";
+import {useAuth} from "../auth/AuthContext";
+import {login as loginService} from "../api/authService";
+import {useNavigate} from "react-router-dom";
+import {BASE_URL} from "../api/config";
 
 export const LoginForm = () => {
-    const { login } = useAuth();
-    const { t } = useTranslation();
+    const {login} = useAuth();
+    const {t} = useTranslation();
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-//funckaj asynchroniczna async czeka na odpowiedz tam gdzie ma await
-//React.FormEvent	Typ zdarzenia React dla onSubmit, onInput, onChange itd.
-//Zastosowanie	Zapewnia bezpieczeństwo typów w TypeScript przy obsłudze formularzy
-//Przykład	const handle = (e: React.FormEvent) => { e.preventDefault(); }
+
     const handleLogin = async (e: React.FormEvent) => {
-        e.preventDefault(); //zapobiega przeładowaniu strony po kliknięciu przycisku submit
+        e.preventDefault();
         try {
             const token = await loginService(username, password);
             login(token);

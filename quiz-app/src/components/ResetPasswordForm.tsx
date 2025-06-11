@@ -1,14 +1,13 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useSearchParams } from "react-router-dom";
-import axios from "axios";
-import { API_URL } from "../api/config";
+import {useState} from "react";
+import {useTranslation} from "react-i18next";
+import {useSearchParams} from "react-router-dom";
+import api from "../api/axiosInterceptor";
 
 export const ResetPasswordForm = () => {
     const [params] = useSearchParams();
     const token = params.get("token");
 
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const [password, setPassword] = useState("");
     const [confirm, setConfirm] = useState("");
     const [message, setMessage] = useState("");
@@ -21,8 +20,11 @@ export const ResetPasswordForm = () => {
         }
 
         try {
-            await axios.post(`${API_URL}/auth/reset-password`, null, {
-                params: { token, newPassword: password },
+            await api.post("/auth/reset-password", null, {
+                params: {
+                    token,
+                    newPassword: password,
+                },
             });
             setMessage(t('reset.success'));
         } catch {
